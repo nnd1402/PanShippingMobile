@@ -9,12 +9,11 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/app_name"
         android:layout_gravity="center"
-        android:textSize="50dp"
-        android:layout_marginStart="10px"
-        android:fontFamily="@font/greatvibes"
-        android:layout_marginTop="60dp"/>
+        android:layout_marginTop="64dp"
+        android:layout_marginStart="40dp"
+        android:text="@string/app_name"
+        android:textSize="30dp" />
 
     <EditText
         android:id="@+id/et_email"
@@ -25,7 +24,6 @@
         android:layout_marginRight="20dp"
         android:padding="15dp"
         android:inputType="textEmailAddress"
-        android:fontFamily="@font/roboto_regular"
         android:layout_above="@id/et_password"
         android:textSize="20dp" />
 
@@ -46,7 +44,6 @@
             android:layout_height="50dp"
             android:hint="@string/password"
             android:padding="15dp"
-            android:fontFamily="@font/roboto_regular"
             android:inputType="textPassword"
             android:layout_centerInParent="true"
             android:textSize="15sp" />
@@ -61,7 +58,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/roboto_regular"
         android:textColor="@android:color/white"
         android:text="@string/register"/>
 
@@ -73,7 +69,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="116dp"
         android:layout_marginRight="20dp"
-        android:fontFamily="@font/roboto_regular"
         android:text="@string/login"
         android:textColor="@android:color/white" />
 

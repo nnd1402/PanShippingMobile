@@ -1,4 +1,4 @@
-package com.example.panshippingandroid;
+package com.example.panshippingandroid.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.fragments.LoginFragment;
 import com.example.panshippingandroid.fragments.RegisterFragment;
 
@@ -23,8 +24,5 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
-        fr.add(R.id.fragment_container, new LoginFragment());
-        fr.commit();
     }
 }

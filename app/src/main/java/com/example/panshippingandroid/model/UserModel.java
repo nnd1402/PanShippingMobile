@@ -1,6 +1,6 @@
 package com.example.panshippingandroid.model;
 
-public class Data {
+public class UserModel {
 
     private int id;
     private String firstName;
