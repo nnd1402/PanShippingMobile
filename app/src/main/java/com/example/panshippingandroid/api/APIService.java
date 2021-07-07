@@ -6,14 +6,15 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Query;
+import retrofit2.http.Headers;
+import retrofit2.http.Path;
 
-public interface GetDataService {
+public interface APIService {
 
-    @GET("getUser")
-    Call<UserModel> getUserById(
-            @Query("id") int id
-    );
+    @GET("user/{Id}")
+    @Headers({"Content-Type:application/json"})
+    Call getUserById(@Path("Id") int userId);
+
 
     @GET("getAllUsers")
     Call<List<UserModel>> getAllUsers();
