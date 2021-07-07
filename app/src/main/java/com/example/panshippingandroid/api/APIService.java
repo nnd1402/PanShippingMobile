@@ -17,5 +17,6 @@ public interface APIService {
 
 
     @GET("getAllUsers")
+    @Headers({"Content-Type:application/json"})
     Call<List<UserModel>> getAllUsers();
 }
