@@ -16,8 +16,6 @@
         android:fontFamily="@font/greatvibes"
         android:layout_marginTop="60dp"/>
 
-
-
     <EditText
         android:id="@+id/et_name"
         android:layout_width="match_parent"
@@ -29,7 +27,7 @@
         android:padding="15dp"
         android:inputType="textPersonName"
         android:fontFamily="@font/roboto_regular"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/et_email"
@@ -42,7 +40,7 @@
         android:padding="15dp"
         android:fontFamily="@font/roboto_regular"
         android:inputType="textEmailAddress"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
 
     <EditText
         android:id="@+id/et_password"
@@ -55,7 +53,9 @@
         android:padding="15dp"
         android:fontFamily="@font/roboto_regular"
         android:inputType="textPassword"
-        android:textSize="15dp" />
+        android:textSize="20dp" />
+
+
 
     <EditText
         android:id="@+id/et_repassword"
@@ -67,13 +67,13 @@
         android:padding="15dp"
         android:fontFamily="@font/roboto_regular"
         android:inputType="textPassword"
-        android:textSize="15dp" />
+        android:layout_centerInParent="true"
+        android:textSize="15sp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
-
 
         <Button
             android:id="@+id/btn_register"
@@ -83,28 +83,9 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="30dp"
-            android:background="@drawable/btn_custom"
             android:fontFamily="@font/roboto_regular"
             android:text="@string/register"
             android:textColor="@android:color/white" />
-
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_above="@id/swipeLeft"
-            android:layout_centerHorizontal="true"
-            android:src="@drawable/ic_right" />
-
-        <TextView
-            android:id="@+id/swipeLeft"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/swipe_right_for_login"
-            android:textSize="15dp" />
 
     </RelativeLayout>
 
