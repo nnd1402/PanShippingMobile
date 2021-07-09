@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
@@ -64,7 +64,7 @@
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@id/et_userName"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
@@ -108,6 +108,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
             android:hint="@string/postal_address"
             android:inputType="textPostalAddress"
             android:padding="15dp"
@@ -127,24 +128,11 @@
             android:padding="15dp"
             android:textSize="15dp" />
 
-        <com.rilixtech.widget.countrycodepicker.CountryCodePicker
-            android:id="@+id/phone"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_below="@id/et_country"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
-            android:inputType="textPostalAddress"
-            android:padding="15dp"
-            android:textSize="20dp"
-            app:ccp_textColor="@android:color/white" />
-
         <EditText
             android:id="@+id/et_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/phone"
+            android:layout_height="50dp"
+            android:layout_below="@id/et_country"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
@@ -156,24 +144,24 @@
         <Button
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/et_phone"
+            android:layout_height="50dp"
+            android:layout_below="@id/et_country"
             android:layout_centerInParent="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="60dp"
             android:text="@string/register"
             android:textColor="@android:color/black" />
 
         <Button
             android:id="@+id/btn_back"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_below="@id/btn_register"
-            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="10dp"
             android:text="Back"
             android:textColor="@android:color/black" />
 
