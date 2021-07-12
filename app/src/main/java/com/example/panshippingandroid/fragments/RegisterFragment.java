@@ -29,6 +29,7 @@ public class RegisterFragment extends Fragment {
 
     private EditText et_firstName, et_lastName, et_userName, et_email, et_password, et_repassword, et_postal_address, et_country, et_phone;
     private Button back_btn, btn_register;
+    private View rootView;
 
     boolean isAllFieldsChecked = false;
     Service service = new Service();
@@ -47,7 +48,22 @@ public class RegisterFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_register, container, false);
+        rootView = inflater.inflate(R.layout.fragment_register, container, false);
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initUI();
+
+
+        apiService = Service.getInstance(getContext()).create(APIService.class);
+    }
+
+
+    private void initUI() {
 
         et_firstName = rootView.findViewById(R.id.et_firstName);
         et_lastName = rootView.findViewById(R.id.et_lastName);
@@ -79,7 +95,7 @@ public class RegisterFragment extends Fragment {
                             et_password.getText().toString(),
                             et_repassword.getText().toString(),
                             et_postal_address.getText().toString(),
-                            et_phone.getText().toString() 
+                            et_phone.getText().toString()
                     );
 
                     registerCall(userModel);
@@ -91,16 +107,8 @@ public class RegisterFragment extends Fragment {
 
             }
         });
-        return rootView;
+
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        apiService = Service.getInstance(getContext()).create(APIService.class);
-    }
-
 
     private boolean CheckAllFields() {
         if (et_firstName.length() == 0) {
@@ -160,6 +168,7 @@ public class RegisterFragment extends Fragment {
                     System.out.println("Success");
                 }
             }
+
             @Override
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                 System.out.println(t.getMessage());

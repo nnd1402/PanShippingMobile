@@ -153,7 +153,8 @@
             android:layout_marginRight="20dp"
             android:layout_marginBottom="10dp"
             android:text="@string/register"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:background="@color/teal_200"/>
 
         <Button
             android:id="@+id/btn_back"
@@ -164,7 +165,8 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:text="Back"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:background="@color/teal_700"/>
 
     </RelativeLayout>
 

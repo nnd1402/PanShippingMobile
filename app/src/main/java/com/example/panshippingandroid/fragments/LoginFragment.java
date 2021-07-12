@@ -44,13 +44,14 @@ public class LoginFragment extends Fragment {
         register_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FragmentTransaction fr = getFragmentManager().beginTransaction();
                 fr.replace(R.id.fragment_container, new RegisterFragment());
                 fr.commit();
             }
         });
 
-         login_btn = rootView.findViewById(R.id.btn_login);
+        login_btn = rootView.findViewById(R.id.btn_login);
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

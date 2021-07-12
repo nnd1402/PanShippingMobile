@@ -18,7 +18,7 @@ public class SecondFragment extends Fragment {
     public static SecondFragment newInstance() {
         SecondFragment fragment = new SecondFragment();
         Bundle args = new Bundle();
-        fragment.setArguments( args );
+        fragment.setArguments(args);
         return fragment;
     }
 

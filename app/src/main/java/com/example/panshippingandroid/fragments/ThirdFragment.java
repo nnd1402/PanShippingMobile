@@ -18,7 +18,7 @@ public class ThirdFragment extends Fragment {
     public static ThirdFragment newInstance() {
         ThirdFragment fragment = new ThirdFragment();
         Bundle args = new Bundle();
-        fragment.setArguments( args );
+        fragment.setArguments(args);
         return fragment;
     }
 
