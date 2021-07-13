@@ -25,9 +25,10 @@ public interface APIService {
     @Headers({"Content-Type:application/json"})
     Call<List<UserModel>> getAllUsers();
 
-    @POST("addUser")
+    @POST("user/addUser")
     @Headers({"Content-Type:application/json"})
     Call<Void> addUser(@Body UserModel userModel);
+
 
     @POST("Trades")
     @Headers({"Content-Type:application/json"})

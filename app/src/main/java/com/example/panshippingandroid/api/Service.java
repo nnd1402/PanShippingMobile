@@ -3,7 +3,6 @@ package com.example.panshippingandroid.api;
 import android.content.Context;
 
 import com.example.panshippingandroid.model.UserModel;
-import com.example.panshippingandroid.utils.Const;
 import com.google.gson.Gson;
 
 import java.util.List;
@@ -34,38 +33,41 @@ public class Service {
         return retrofit;
     }
 
-    public static APIService getInstance() {
-        if (apiClient == null) {
-            apiClient = new APIService() {
-                @Override
-                public Call getUserById(int userId) {
-                    return null;
-                }
-
-                @Override
-                public Call<List<UserModel>> getAllUsers() {
-                    return null;
-                }
-
-                @Override
-                public Call<Void> addUser(UserModel userModel) {
-                    return null;
-                }
-
-                @Override
-                public Call<Void> doTradeJob(RequestBody json) {
-                    return null;
-                }
-
-                @Override
-                public Call<ResponseBody> insertUser(String firstName, String lastName) {
-                    return null;
-                }
-
-            };
-        }
-        return apiClient;
-    }
+//    public static APIService getInstance() {
+//        if (apiClient == null) {
+//            apiClient = new APIService() {
+//                @Override
+//                public Call getUserById(int userId) {
+//                    return null;
+//                }
+//
+//                @Override
+//                public Call<List<UserModel>> getAllUsers() {
+//                    return null;
+//                }
+//
+//                @Override
+//                public Call<List<UserModel>> addUser(UserModel userModel) {
+//                    return null;
+//                }
+//
+//                APIService service = getRetrofitInstance().create(APIService.class);
+//
+//                //Call<List<UserModel>> call = service.addUser();
+//                @Override
+//                public Call<Void> doTradeJob(RequestBody json) {
+//                    return null;
+//                }
+//
+//                @Override
+//                public Call<ResponseBody> insertUser(String firstName, String lastName) {
+//                    return null;
+//                }
+//
+//            };
+//        }
+//        return apiClient;
+//    }
 
     public static Retrofit getInstance(Context context) {
 

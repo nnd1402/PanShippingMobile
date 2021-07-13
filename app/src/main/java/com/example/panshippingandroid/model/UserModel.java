@@ -8,21 +8,9 @@ public class UserModel {
     private String email;
     private String address;
     private String country;
-    private String phone;
+    private int phone;
     private String username;
     private String password;
-
-    public UserModel(String firstName, String lastName, String email, String address, String country, String phone, String username, String password) {
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.country = country;
-        this.phone = phone;
-        this.username = username;
-        this.password = password;
-    }
 
     public int getId() {
         return id;
@@ -72,11 +60,11 @@ public class UserModel {
         this.country = country;
     }
 
-    public String getPhone() {
+    public int getPhone() {
         return phone;
     }
 
-    public void setPhone(String phone) {
+    public void setPhone(int phone) {
         this.phone = phone;
     }
 

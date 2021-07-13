@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,8 +29,17 @@ import retrofit2.Response;
 
 public class RegisterFragment extends Fragment {
 
-    private EditText et_firstName, et_lastName, et_userName, et_email, et_password, et_repassword, et_postal_address, et_country, et_phone;
-    private Button back_btn, btn_register;
+    private EditText et_firstName;
+    private EditText et_lastName;
+    private EditText et_userName;
+    private EditText et_email;
+    private EditText et_password;
+    private EditText et_address;
+    private EditText et_country;
+    private EditText et_phone;
+
+    private TextView tv_login;
+    private Button btn_register;
     private View rootView;
 
     boolean isAllFieldsChecked = false;
@@ -41,7 +52,6 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
     }
 
@@ -58,7 +68,6 @@ public class RegisterFragment extends Fragment {
 
         initUI();
 
-
         apiService = Service.getInstance(getContext()).create(APIService.class);
     }
 
@@ -70,12 +79,12 @@ public class RegisterFragment extends Fragment {
         et_userName = rootView.findViewById(R.id.et_userName);
         et_email = rootView.findViewById(R.id.et_email);
         et_password = rootView.findViewById(R.id.et_password);
-        et_repassword = rootView.findViewById(R.id.et_repassword);
-        et_postal_address = rootView.findViewById(R.id.et_postal_address);
+        et_address = rootView.findViewById(R.id.et_address);
+        et_country = rootView.findViewById(R.id.et_country);
         et_phone = rootView.findViewById(R.id.et_phone);
 
-        back_btn = rootView.findViewById(R.id.btn_back);
-        back_btn.setOnClickListener(v -> {
+        tv_login = rootView.findViewById(R.id.btn_back);
+        tv_login.setOnClickListener(v -> {
             FragmentTransaction fr = getFragmentManager().beginTransaction();
             fr.replace(R.id.fragment_container, new LoginFragment());
             fr.commit();
@@ -87,22 +96,20 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
                 isAllFieldsChecked = CheckAllFields();
                 if (isAllFieldsChecked) {
-                    UserModel userModel = new UserModel(
-                            et_firstName.getText().toString(),
-                            et_lastName.getText().toString(),
-                            et_userName.getText().toString(),
-                            et_email.getText().toString(),
-                            et_password.getText().toString(),
-                            et_repassword.getText().toString(),
-                            et_postal_address.getText().toString(),
-                            et_phone.getText().toString()
-                    );
+                    int phone = Integer.parseInt(et_phone.getText().toString());
+                    UserModel userModel = new UserModel();
+
+                    userModel.setFirstName(et_firstName.getText().toString());
+                    userModel.setLastName(et_lastName.getText().toString());
+                    userModel.setUsername(et_userName.getText().toString());
+                    userModel.setEmail(et_email.getText().toString());
+                    userModel.setPassword(et_password.getText().toString());
+                    userModel.setAddress(et_address.getText().toString());
+                    userModel.setCountry(et_country.getText().toString());
+                    userModel.setPhone(phone);
 
                     registerCall(userModel);
 
-                    FragmentTransaction fr = getFragmentManager().beginTransaction();
-                    fr.replace(R.id.fragment_container, new LoginFragment());
-                    fr.commit();
                 }
 
             }
@@ -141,12 +148,8 @@ public class RegisterFragment extends Fragment {
             return false;
         }
 
-        if (!et_repassword.getText().toString().equals(et_password.getText().toString())) {
-            et_repassword.setError("Password do not match!");
-            return false;
-        }
 
-        if (et_postal_address.length() == 0) {
+        if (et_address.length() == 0) {
             et_password.setError("Password is required!");
             return false;
 
@@ -163,10 +166,18 @@ public class RegisterFragment extends Fragment {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.code() == HttpURLConnection.HTTP_OK) {
+                if (response.code() == HttpURLConnection.HTTP_CREATED) {
 
-                    System.out.println("Success");
+                    FragmentTransaction fr = getFragmentManager().beginTransaction();
+                    fr.replace(R.id.fragment_container, new LoginFragment());
+                    fr.commit();
+
+                } else {
+
+                    Toast.makeText(getActivity(), "Don't have response!", Toast.LENGTH_SHORT).show();
+
                 }
+
             }
 
             @Override

@@ -9,17 +9,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.panshippingandroid.activities.MainActivity;
 import com.example.panshippingandroid.R;
+import com.example.panshippingandroid.api.APIService;
+import com.example.panshippingandroid.api.Service;
 
 
 public class LoginFragment extends Fragment {
 
-    private EditText et_username, et_password;
+    private EditText et_username;
+    private EditText et_password;
+
     private Button login_btn;
+    private View rootView;
 
     boolean isAllFieldsChecked = false;
 
@@ -35,7 +42,20 @@ public class LoginFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_login, container, false);
+        rootView = inflater.inflate(R.layout.fragment_login, container, false);
+
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        initUI();
+
+    }
+
+    private void initUI() {
 
         et_username = rootView.findViewById(R.id.et_username);
         et_password = rootView.findViewById(R.id.et_password);
@@ -62,7 +82,7 @@ public class LoginFragment extends Fragment {
                 }
             }
         });
-        return rootView;
+
     }
 
     private boolean CheckAllFields() {
