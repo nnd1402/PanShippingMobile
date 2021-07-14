@@ -10,5 +10,10 @@
     <string name="address">Address</string>
     <string name="country">Country</string>
     <string name="phone">Phone</string>
-
+    <string name="username_is_required">This field to Username is required!</string>
+    <string name="field_is_required">This field is required!</string>
+    <string name="field_to_password">This field to Password  is required!</string>
+    <string name="problem_with_login">Problem with login.Try again...</string>
+    <string name="invalid_email">Invalid email!</string>
+    <string name="invalid_password">Invalid password</string>
 </resources>

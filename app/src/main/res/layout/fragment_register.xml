@@ -39,7 +39,6 @@
                 android:inputType="textPersonName"
                 android:padding="15dp"
                 android:textSize="15dp" />
-
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout

@@ -25,15 +25,7 @@ public interface APIService {
     @Headers({"Content-Type:application/json"})
     Call<Void> addUser(@Body UserModel userModel);
 
-
     @POST("user/login")
     @Headers({"Content-Type:application/json"})
     Call<Void> login(@Body LoginModel loginModel);
-
-
-    @POST("Trades")
-    @Headers({"Content-Type:application/json"})
-    Call<Void> doTradeJob(@Body RequestBody json);
-
-
 }

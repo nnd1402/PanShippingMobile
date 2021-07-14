@@ -14,7 +14,6 @@ public class SecondFragment extends Fragment {
 
     public static final String TAG = "Second fragment";
 
-
     public static SecondFragment newInstance() {
         SecondFragment fragment = new SecondFragment();
         Bundle args = new Bundle();

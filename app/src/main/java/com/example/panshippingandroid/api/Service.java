@@ -2,21 +2,15 @@ package com.example.panshippingandroid.api;
 
 import android.content.Context;
 
-import com.example.panshippingandroid.model.UserModel;
 import com.google.gson.Gson;
 
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.example.panshippingandroid.utils.Const.BASE_URL;
-
 
 public class Service {
 
@@ -46,5 +40,4 @@ public class Service {
                 .client(okClient)
                 .build();
     }
-
 }
