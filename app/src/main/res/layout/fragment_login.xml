@@ -26,7 +26,7 @@
         android:layout_below="@id/tv_title"
         android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:layout_marginRight="20dp"
         app:boxBackgroundColor="@color/black">
 
@@ -50,7 +50,7 @@
         android:layout_below="@id/username"
         android:layout_centerInParent="true"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="0dp"
         android:layout_marginRight="20dp"
         app:boxBackgroundColor="@color/black"
         app:hintEnabled="true"
@@ -62,11 +62,11 @@
             android:layout_height="70dp"
             android:layout_centerInParent="true"
             android:hint="@string/password"
-            app:passwordToggleEnabled="true"
             android:inputType="textPassword"
             android:padding="15dp"
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="15sp"
+            app:passwordToggleEnabled="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="189dp"
+        android:layout_marginTop="100dp"
         android:layout_marginRight="20dp"
         android:text="@string/login"
         android:textColor="@android:color/black"
@@ -94,6 +94,7 @@
         android:linksClickable="true"
         android:text="@string/register"
         android:textColor="@color/teal_200"
-        android:textSize="20dp" />
+        android:textSize="20dp"
+        android:textAllCaps="true" />
 
 </RelativeLayout>

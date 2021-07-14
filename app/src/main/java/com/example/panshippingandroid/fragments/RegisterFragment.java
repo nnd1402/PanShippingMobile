@@ -2,6 +2,8 @@ package com.example.panshippingandroid.fragments;
 
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +23,7 @@ import com.example.panshippingandroid.api.Service;
 import com.example.panshippingandroid.model.UserModel;
 
 import java.net.HttpURLConnection;
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,9 +45,8 @@ public class RegisterFragment extends Fragment {
     private Button btn_register;
     private View rootView;
 
-    boolean isAllFieldsChecked = false;
-    Service service = new Service();
-    APIService apiService;
+    private boolean isAllFieldsChecked = false;
+    private APIService apiService;
 
     public RegisterFragment() {
     }
@@ -96,7 +98,7 @@ public class RegisterFragment extends Fragment {
             public void onClick(View v) {
                 isAllFieldsChecked = CheckAllFields();
                 if (isAllFieldsChecked) {
-                    int phone = Integer.parseInt(et_phone.getText().toString());
+
                     UserModel userModel = new UserModel();
 
                     userModel.setFirstName(et_firstName.getText().toString());
@@ -106,55 +108,60 @@ public class RegisterFragment extends Fragment {
                     userModel.setPassword(et_password.getText().toString());
                     userModel.setAddress(et_address.getText().toString());
                     userModel.setCountry(et_country.getText().toString());
-                    userModel.setPhone(phone);
+                    userModel.setPhone(et_phone.getText().toString());
 
                     registerCall(userModel);
 
                 }
-
             }
         });
 
     }
 
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
+
     private boolean CheckAllFields() {
-        if (et_firstName.length() == 0) {
+        if (et_firstName.getText().toString().length() == 0) {
             et_firstName.setError("This field is required!");
             return false;
         }
 
-        if (et_lastName.length() == 0) {
+        if (et_lastName.getText().toString().length() == 0) {
             et_lastName.setError("This field is required!");
             return false;
         }
 
-        if (et_userName.length() == 0) {
+        if (et_userName.getText().toString().length() == 0) {
             et_userName.setError("This field is required!");
             return false;
         }
 
-        if (et_email.length() == 0) {
+        if (et_email.getText().toString().length() < 12 && !isValidEmail(et_email.getText().toString())) {
             et_email.setError("This field is required!");
-            return false;
-        }
 
-        if (et_password.length() == 0) {
-            et_password.setError("Password is required!");
-            return false;
-        }
-
-        if (et_password.length() < 1) {
-            et_password.setError("Password must be minimum 8 characters!");
+            Toast.makeText(getActivity(), "Invalid email!", Toast.LENGTH_SHORT).show();
             return false;
         }
 
 
-        if (et_address.length() == 0) {
-            et_password.setError("Password is required!");
+        if (et_password.getText().toString().length() < 6) {
+            Toast.makeText(getActivity(), "Invalid password", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (et_address.getText().toString().length() == 0) {
+            et_address.setError("This field is required!");
+            return false;
+        }
+        if (et_country.getText().toString().length() == 0) {
+            et_country.setError("This field is required!");
             return false;
 
-        } else if (et_phone.length() == 0) {
-            et_phone.setError("Password is required!");
+        } else if (et_phone.getText().toString().length() == 0) {
+            et_phone.setError("This field is required!");
             return false;
         }
 

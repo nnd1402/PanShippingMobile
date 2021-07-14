@@ -5,12 +5,27 @@ public class UserModel {
     private int id;
     private String firstName;
     private String lastName;
+    private String username;
     private String email;
+    private String password;
     private String address;
     private String country;
-    private int phone;
-    private String username;
-    private String password;
+    private String phone;
+
+    public UserModel() {
+    }
+
+    public UserModel(int id, String firstName, String lastName, String username, String email, String password, String address, String country, String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+        this.country = country;
+        this.phone = phone;
+    }
 
     public int getId() {
         return id;
@@ -36,6 +51,14 @@ public class UserModel {
         this.lastName = lastName;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -43,6 +66,15 @@ public class UserModel {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     public String getAddress() {
         return address;
@@ -60,27 +92,12 @@ public class UserModel {
         this.country = country;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(int phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 }

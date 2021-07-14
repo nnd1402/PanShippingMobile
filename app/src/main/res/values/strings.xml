@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PanShippingAndroid</string>
+    <string name="app_name">PanShipping</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
     <string name="first_name">First name</string>
@@ -7,10 +7,8 @@
     <string name="user_name">User name</string>
     <string name="e_mail">Email</string>
     <string name="password">Password</string>
-    <string name="re_type_password">Re-type Password</string>
-    <string name="postal_address">Postal address</string>
+    <string name="address">Address</string>
     <string name="country">Country</string>
     <string name="phone">Phone</string>
-    <string name="press_back_again">\"Press back once again to exit!\"</string>
 
 </resources>
