@@ -118,12 +118,31 @@
                 android:textSize="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/password"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_confirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="0dp"
+                android:hint="@string/re_password"
+                android:inputType="textPassword"
+                android:padding="15dp"
+                android:textSize="15dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/postal_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/password">
+            android:layout_below="@id/etPassword">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/et_address"
@@ -193,7 +212,7 @@
             android:textColor="@android:color/black" />
 
         <TextView
-            android:id="@+id/btn_back"
+            android:id="@+id/tv_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/btn_register"

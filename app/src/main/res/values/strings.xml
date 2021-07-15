@@ -16,4 +16,8 @@
     <string name="problem_with_login">Problem with login.Try again...</string>
     <string name="invalid_email">Invalid email!</string>
     <string name="invalid_password">Invalid password</string>
+    <string name="re_password">Re-type Password</string>
+    <string name="matching_password">"\"Password Not matching!\" "</string>
+    <string name="successful_registration">"\"Successful registration!\" "</string>
+    <string name="press_back_again">"\"Press back once again to exit!\" "</string>
 </resources>

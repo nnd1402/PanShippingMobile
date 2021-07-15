@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +37,23 @@ public class RegisterFragment extends Fragment {
     private EditText et_userName;
     private EditText et_email;
     private EditText et_password;
+    private EditText et_confirmPassword;
     private EditText et_address;
     private EditText et_country;
     private EditText et_phone;
+    private TextView tv_login;
+    private Button btn_register;
     private View rootView;
+    private FrameLayout container;
 
     private boolean isAllFieldsChecked = false;
+
+    public static RegisterFragment newInstance() {
+        Bundle args = new Bundle();
+        RegisterFragment fragment = new RegisterFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     public RegisterFragment() {
     }
@@ -61,22 +73,13 @@ public class RegisterFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        et_firstName = rootView.findViewById(R.id.et_firstName);
-        et_lastName = rootView.findViewById(R.id.et_lastName);
-        et_userName = rootView.findViewById(R.id.et_userName);
-        et_email = rootView.findViewById(R.id.et_email);
-        et_password = rootView.findViewById(R.id.et_password);
-        et_address = rootView.findViewById(R.id.et_address);
-        et_country = rootView.findViewById(R.id.et_country);
-        et_phone = rootView.findViewById(R.id.et_phone);
-        TextView tv_login = rootView.findViewById(R.id.btn_back);
+        initUI();
         tv_login.setOnClickListener(v -> {
-            FragmentTransaction fr = getChildFragmentManager().beginTransaction();
-            fr.replace(R.id.fragment_container, new LoginFragment());
+            FragmentTransaction fr = getParentFragmentManager().beginTransaction();
+            fr.addToBackStack(null);
+            fr.replace(R.id.fragment_container, LoginFragment.newInstance());
             fr.commit();
         });
-        Button btn_register = rootView.findViewById(R.id.btn_register);
         btn_register.setOnClickListener(v -> {
             isAllFieldsChecked = CheckAllFields();
             if (isAllFieldsChecked) {
@@ -86,12 +89,28 @@ public class RegisterFragment extends Fragment {
                 userModel.setUsername(et_userName.getText().toString());
                 userModel.setEmail(et_email.getText().toString());
                 userModel.setPassword(et_password.getText().toString());
+                userModel.setConfirmPassword(et_confirmPassword.getText().toString());
                 userModel.setAddress(et_address.getText().toString());
                 userModel.setCountry(et_country.getText().toString());
                 userModel.setPhone(et_phone.getText().toString());
                 registerCall(userModel);
             }
         });
+    }
+
+    private void initUI() {
+        et_firstName = requireView().findViewById(R.id.et_firstName);
+        et_lastName = requireView().findViewById(R.id.et_lastName);
+        et_userName = requireView().findViewById(R.id.et_userName);
+        et_email = requireView().findViewById(R.id.et_email);
+        et_password = requireView().findViewById(R.id.et_password);
+        et_confirmPassword = requireView().findViewById(R.id.et_confirmPassword);
+        et_address = requireView().findViewById(R.id.et_address);
+        et_country = requireView().findViewById(R.id.et_country);
+        et_phone = requireView().findViewById(R.id.et_phone);
+        tv_login = requireView().findViewById(R.id.tv_login);
+        btn_register = rootView.findViewById(R.id.btn_register);
+        container = requireView().findViewById(R.id.fragment_container);
     }
 
     public boolean isValidEmail(CharSequence target) {
@@ -120,6 +139,10 @@ public class RegisterFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.invalid_password, Toast.LENGTH_SHORT).show();
             return false;
         }
+        if (et_password.getText().toString().length() != et_confirmPassword.getText().toString().length()) {
+            Toast.makeText(getActivity(), R.string.matching_password, Toast.LENGTH_SHORT).show();
+            return false;
+        }
         if (et_address.getText().toString().length() == 0) {
             et_address.setError(getString(R.string.field_is_required));
             return false;
@@ -131,7 +154,9 @@ public class RegisterFragment extends Fragment {
             et_phone.setError(getString(R.string.field_is_required));
             return false;
         }
+        Toast.makeText(getActivity(), R.string.successful_registration, Toast.LENGTH_SHORT).show();
         return true;
+
     }
 
     public void registerCall(UserModel userModel) {
@@ -140,9 +165,8 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_CREATED) {
-
                     FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-                    fr.replace(R.id.fragment_container, new LoginFragment());
+                    fr.replace(R.id.fragment_container, LoginFragment.newInstance());
                     fr.commit();
                 } else {
                     Toast.makeText(getActivity(), "Don't have response!", Toast.LENGTH_SHORT).show();
@@ -151,8 +175,6 @@ public class RegisterFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
-                System.out.println(t.getMessage());
-                System.out.println(t.getLocalizedMessage());
                 call.cancel();
             }
         });

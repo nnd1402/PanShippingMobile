@@ -15,7 +15,6 @@ import static com.example.panshippingandroid.utils.Const.BASE_URL;
 public class Service {
 
     private static Retrofit retrofit;
-    public static APIService apiClient;
 
     public static Retrofit getRetrofitInstance() {
         if (retrofit == null) {

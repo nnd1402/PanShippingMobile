@@ -1,9 +1,11 @@
 package com.example.panshippingandroid.activities;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-
-import android.os.Bundle;
 
 import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.api.APIService;
@@ -13,6 +15,7 @@ import com.example.panshippingandroid.fragments.LoginFragment;
 public class LoginActivity extends AppCompatActivity {
 
     public static APIService apiService;
+    private boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,23 @@ public class LoginActivity extends AppCompatActivity {
 
         apiService = Service.getInstance(this).create(APIService.class);
         FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
-        fr.add(R.id.fragment_container, new LoginFragment());
+        fr.add(R.id.fragment_container, LoginFragment.newInstance());
         fr.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        int fragmentBackStackCount = getSupportFragmentManager().getBackStackEntryCount();
+        if (fragmentBackStackCount > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            if (doubleBackToExitPressedOnce) {
+                finishAffinity();
+            } else {
+                this.doubleBackToExitPressedOnce = true;
+                Toast.makeText(this, R.string.press_back_again, Toast.LENGTH_SHORT).show();
+                new Handler().postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+            }
+        }
     }
 }

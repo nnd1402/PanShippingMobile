@@ -3,7 +3,6 @@ package com.example.panshippingandroid.api;
 import com.example.panshippingandroid.model.LoginModel;
 import com.example.panshippingandroid.model.UserModel;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;

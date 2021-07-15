@@ -39,6 +39,13 @@ public class LoginFragment extends Fragment {
     public LoginFragment() {
     }
 
+    public static LoginFragment newInstance() {
+        Bundle args = new Bundle();
+        LoginFragment fragment = new LoginFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +63,8 @@ public class LoginFragment extends Fragment {
         initUI();
         register_btn.setOnClickListener(v -> {
             FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-            fr.replace(R.id.fragment_container, new RegisterFragment());
+            fr.addToBackStack(null);
+            fr.replace(R.id.fragment_container, RegisterFragment.newInstance());
             fr.commit();
         });
         login_btn.setOnClickListener(v -> {
