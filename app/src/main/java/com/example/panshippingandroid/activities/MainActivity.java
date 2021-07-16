@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.panshippingandroid.R;
+import com.example.panshippingandroid.fragments.AddProductFragment;
 import com.example.panshippingandroid.fragments.FirstFragment;
 import com.example.panshippingandroid.fragments.SecondFragment;
 import com.example.panshippingandroid.fragments.ThirdFragment;
@@ -28,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.second_fragment:
                 replaceFragment(SecondFragment.newInstance(), SecondFragment.TAG);
                 return true;
-            case R.id.third_fragment:
-                replaceFragment(ThirdFragment.newInstance(), ThirdFragment.TAG);
+            case R.id.add_fragment:
+                replaceFragment(AddProductFragment.newInstance(), AddProductFragment.TAG);
                 return true;
         }
         return false;

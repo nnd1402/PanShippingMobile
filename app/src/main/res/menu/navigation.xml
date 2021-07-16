@@ -17,9 +17,9 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/third_fragment"
+        android:id="@+id/add_fragment"
         android:icon="@drawable/fragment"
-        android:title="Third Fragment"
+        android:title="Add Product Fragment"
         android:enabled="true"
         app:showAsAction="ifRoom" />
 

@@ -9,5 +9,6 @@ public class ProductModel {
     private double price;
     private int quantity;
     private String description;
+    private String imageURL;
     private UserModel user;
 }
