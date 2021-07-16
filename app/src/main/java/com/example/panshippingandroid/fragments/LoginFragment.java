@@ -71,8 +71,8 @@ public class LoginFragment extends Fragment {
             isAllFieldsChecked = fieldUserAndPassword();
             if (isAllFieldsChecked) {
                 LoginModel loginModel = new LoginModel();
-                loginModel.setUsername(et_username.getText().toString());
-                loginModel.setPassword(et_password.getText().toString());
+                loginModel.setUsername(et_username.getText().toString().trim());
+                loginModel.setPassword(et_password.getText().toString().trim());
                 loginCall(loginModel);
             }
         });
