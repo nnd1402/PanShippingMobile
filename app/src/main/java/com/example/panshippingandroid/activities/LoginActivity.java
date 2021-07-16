@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity {
 
         apiService = Service.getInstance(this).create(APIService.class);
         FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
-        fr.add(R.id.fragment_container, LoginFragment.newInstance());
+        fr.replace(R.id.fragment_container, LoginFragment.newInstance());
         fr.commit();
     }
 
