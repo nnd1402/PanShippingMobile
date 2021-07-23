@@ -29,7 +29,6 @@ import com.example.panshippingandroid.utils.ImageUtils;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 
-import lombok.SneakyThrows;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -152,7 +151,7 @@ public class AddProductFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.select_image, Toast.LENGTH_SHORT).show();
             return false;
         }
-        Toast.makeText(getActivity(), R.string.successfully_added_product, Toast.LENGTH_SHORT).show();
+
         return true;
     }
 
@@ -162,11 +161,12 @@ public class AddProductFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_CREATED) {
+                    Toast.makeText(getActivity(), R.string.successfully_added_product, Toast.LENGTH_SHORT).show();
                     FragmentTransaction fr = getParentFragmentManager().beginTransaction();
                     fr.replace(R.id.container, FirstFragment.newInstance());
                     fr.commit();
                 } else {
-                    Toast.makeText(getActivity(), "Don't added product!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.was_not_added_product, Toast.LENGTH_SHORT).show();
                 }
             }
 
