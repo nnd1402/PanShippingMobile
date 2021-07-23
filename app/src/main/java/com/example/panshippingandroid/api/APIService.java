@@ -1,6 +1,7 @@
 package com.example.panshippingandroid.api;
 
 import com.example.panshippingandroid.model.LoginModel;
+import com.example.panshippingandroid.model.ProductModel;
 import com.example.panshippingandroid.model.UserModel;
 
 import retrofit2.Call;
@@ -26,5 +27,10 @@ public interface APIService {
 
     @POST("user/login")
     @Headers({"Content-Type:application/json"})
-    Call<Void> login(@Body LoginModel loginModel);
+    Call<UserModel> login(@Body LoginModel loginModel);
+
+    @POST("product/addProduct")
+    @Headers({"Content-Type:application/json"})
+    Call<Void> addProduct(@Body ProductModel productModel);
+
 }

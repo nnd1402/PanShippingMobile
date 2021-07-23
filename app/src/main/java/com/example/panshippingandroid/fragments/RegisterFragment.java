@@ -46,6 +46,7 @@ public class RegisterFragment extends Fragment {
     private View rootView;
     private FrameLayout container;
 
+
     private boolean isAllFieldsChecked = false;
 
     public static RegisterFragment newInstance() {

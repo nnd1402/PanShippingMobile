@@ -1,6 +1,8 @@
 package com.example.panshippingandroid.fragments;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.activities.MainActivity;
 import com.example.panshippingandroid.model.LoginModel;
+import com.example.panshippingandroid.model.UserModel;
 
 import java.net.HttpURLConnection;
 
@@ -26,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.panshippingandroid.activities.LoginActivity.apiService;
+import static com.example.panshippingandroid.utils.Const.USER_ID;
 
 
 public class LoginFragment extends Fragment {
@@ -35,6 +39,7 @@ public class LoginFragment extends Fragment {
     private Button login_btn;
     private TextView register_btn;
     boolean isAllFieldsChecked = false;
+    private SharedPreferences sharedPreferences;
 
     public LoginFragment() {
     }
@@ -49,6 +54,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        checkSharedPreferences();
     }
 
     @Override
@@ -56,6 +62,7 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -96,12 +103,20 @@ public class LoginFragment extends Fragment {
         return true;
     }
 
-    public void loginCall(LoginModel loginModel) {
-        Call<Void> call = apiService.login(loginModel);
-        call.enqueue(new Callback<Void>() {
+    public void checkSharedPreferences() {
+        sharedPreferences = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+    }
+
+    private void loginCall(LoginModel loginModel) {
+        Call<UserModel> call = apiService.login(loginModel);
+        call.enqueue(new Callback<UserModel>() {
             @Override
-            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+            public void onResponse(@NonNull Call<UserModel> call, @NonNull Response<UserModel> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
+                    UserModel u = response.body();
+                    if (u != null) {
+                        sharedPreferences.edit().putLong(USER_ID, u.getId()).apply();
+                    }
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 } else {
                     Toast.makeText(getActivity(), R.string.problem_with_login, Toast.LENGTH_SHORT).show();
@@ -109,7 +124,7 @@ public class LoginFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<UserModel> call, @NonNull Throwable t) {
                 call.cancel();
             }
         });

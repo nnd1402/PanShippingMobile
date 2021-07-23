@@ -157,7 +157,6 @@
                 android:textSize="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/country"
             android:layout_width="match_parent"
@@ -228,7 +227,5 @@
             android:textAllCaps="true"
             android:textColor="@color/teal_200"
             android:textSize="20dp" />
-
     </RelativeLayout>
-
 </ScrollView>

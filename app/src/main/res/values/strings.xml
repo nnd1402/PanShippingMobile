@@ -20,4 +20,7 @@
     <string name="matching_password">"\"Password Not matching!\" "</string>
     <string name="successful_registration">"\"Successful registration!\" "</string>
     <string name="press_back_again">"\"Press back once again to exit!\" "</string>
+    <string name="add_product">Add Product</string>
+    <string name="successful_added_produst">"\"Successful added product!\" "</string>
+    <string name="select_image">"\"    Image must be selected!\" "</string>
 </resources>
