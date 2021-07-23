@@ -11,7 +11,6 @@ public class ProductModel {
     private String description;
     private String productImage;
     private Long user;
-
 }
 
 

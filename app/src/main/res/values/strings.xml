@@ -18,7 +18,7 @@
     <string name="invalid_password">Invalid password</string>
     <string name="re_password">Re-type Password</string>
     <string name="matching_password">"\"Password don't match!\" "</string>
-    <string name="successfully_registration">"\"Successful registration!\" "</string>
+    <string name="successfully_registration">"\"Successfully registration!\" "</string>
     <string name="press_back_again">"\"Press back once again to exit!\" "</string>
     <string name="add_product">Add Product</string>
     <string name="successfully_added_product">"\"Successfully added product!\" "</string>

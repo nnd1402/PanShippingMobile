@@ -49,8 +49,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         apiService = Service.getInstance(this).create(APIService.class);
-
-
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(0);
@@ -63,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, fragment, TAG)
                 .commit();
     }
-
 
     @Override
     public void onBackPressed() {
