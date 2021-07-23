@@ -29,6 +29,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.panshippingandroid.activities.LoginActivity.apiService;
+import static com.example.panshippingandroid.utils.Const.AUTHENTICATION_FILE_NAME;
 import static com.example.panshippingandroid.utils.Const.USER_ID;
 
 
@@ -62,7 +63,6 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_login, container, false);
     }
-
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -104,7 +104,7 @@ public class LoginFragment extends Fragment {
     }
 
     public void checkSharedPreferences() {
-        sharedPreferences = requireContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+        sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
     }
 
     private void loginCall(LoginModel loginModel) {
@@ -113,9 +113,9 @@ public class LoginFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<UserModel> call, @NonNull Response<UserModel> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-                    UserModel u = response.body();
-                    if (u != null) {
-                        sharedPreferences.edit().putLong(USER_ID, u.getId()).apply();
+                    UserModel user = response.body();
+                    if (user != null) {
+                        sharedPreferences.edit().putLong(USER_ID, user.getId()).apply();
                     }
                     startActivity(new Intent(getActivity(), MainActivity.class));
                 } else {

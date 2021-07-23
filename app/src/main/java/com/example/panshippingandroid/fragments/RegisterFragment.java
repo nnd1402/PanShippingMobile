@@ -45,8 +45,6 @@ public class RegisterFragment extends Fragment {
     private Button btn_register;
     private View rootView;
     private FrameLayout container;
-
-
     private boolean isAllFieldsChecked = false;
 
     public static RegisterFragment newInstance() {
@@ -85,8 +83,8 @@ public class RegisterFragment extends Fragment {
             isAllFieldsChecked = CheckAllFields();
             if (isAllFieldsChecked) {
                 UserModel userModel = new UserModel();
-                userModel.setFirstName(et_firstName.getText().toString());
-                userModel.setLastName(et_lastName.getText().toString());
+                userModel.setFirstname(et_firstName.getText().toString());
+                userModel.setLastname(et_lastName.getText().toString());
                 userModel.setUsername(et_userName.getText().toString());
                 userModel.setEmail(et_email.getText().toString());
                 userModel.setPassword(et_password.getText().toString());
@@ -155,7 +153,7 @@ public class RegisterFragment extends Fragment {
             et_phone.setError(getString(R.string.field_is_required));
             return false;
         }
-        Toast.makeText(getActivity(), R.string.successful_registration, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.successfully_registration, Toast.LENGTH_SHORT).show();
         return true;
 
     }

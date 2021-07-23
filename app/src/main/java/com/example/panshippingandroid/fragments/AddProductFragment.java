@@ -103,7 +103,6 @@ public class AddProductFragment extends Fragment {
         });
     }
 
-    @SneakyThrows
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -115,9 +114,9 @@ public class AddProductFragment extends Fragment {
             } catch (NullPointerException | IOException n) {
                 n.printStackTrace();
             }
-            Bitmap forHolderBitmap = ImageUtils.getResizedBitmap(bitmap, 800);
+            Bitmap productImage = ImageUtils.getResizedBitmap(bitmap, 800);
             Glide.with(this)
-                    .load(forHolderBitmap)
+                    .load(productImage)
                     .error(R.drawable.ic_add)
                     .override(1000, 800)
                     .into(iv_addImage);
@@ -153,7 +152,7 @@ public class AddProductFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.select_image, Toast.LENGTH_SHORT).show();
             return false;
         }
-        Toast.makeText(getActivity(), R.string.successful_added_produst, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.successfully_added_product, Toast.LENGTH_SHORT).show();
         return true;
     }
 
@@ -167,7 +166,7 @@ public class AddProductFragment extends Fragment {
                     fr.replace(R.id.container, FirstFragment.newInstance());
                     fr.commit();
                 } else {
-                    Toast.makeText(getActivity(), "Don't have response!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Don't added product!", Toast.LENGTH_SHORT).show();
                 }
             }
 
