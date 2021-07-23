@@ -9,27 +9,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.panshippingandroid.R;
+import com.example.panshippingandroid.api.APIService;
+import com.example.panshippingandroid.api.Service;
+import com.example.panshippingandroid.fragments.AddProductFragment;
 import com.example.panshippingandroid.fragments.FirstFragment;
 import com.example.panshippingandroid.fragments.SecondFragment;
 import com.example.panshippingandroid.fragments.ThirdFragment;
+import com.example.panshippingandroid.model.UserModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
 
     private boolean doubleBackToExitPressedOnce = false;
+    public static APIService apiService;
 
     @SuppressLint("NonConstantResourceId")
     private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
+        Fragment fragment;
         switch (item.getItemId()) {
             case R.id.first_fragment:
-                replaceFragment(FirstFragment.newInstance(), FirstFragment.TAG);
+                fragment = new FirstFragment();
+                replaceFragment(fragment, FirstFragment.TAG);
                 return true;
             case R.id.second_fragment:
-                replaceFragment(SecondFragment.newInstance(), SecondFragment.TAG);
+                fragment = new SecondFragment();
+                replaceFragment(fragment, SecondFragment.TAG);
                 return true;
-            case R.id.third_fragment:
-                replaceFragment(ThirdFragment.newInstance(), ThirdFragment.TAG);
+            case R.id.add_fragment:
+                fragment = new AddProductFragment();
+                replaceFragment(fragment, AddProductFragment.TAG);
                 return true;
         }
         return false;
@@ -39,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        apiService = Service.getInstance(this).create(APIService.class);
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(0);
@@ -52,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
                 .replace(R.id.container, fragment, TAG)
                 .commit();
     }
-
 
     @Override
     public void onBackPressed() {

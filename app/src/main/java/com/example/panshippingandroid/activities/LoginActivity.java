@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         apiService = Service.getInstance(this).create(APIService.class);
         FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
         fr.replace(R.id.fragment_container, LoginFragment.newInstance());
