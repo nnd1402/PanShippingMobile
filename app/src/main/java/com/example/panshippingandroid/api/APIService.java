@@ -32,5 +32,4 @@ public interface APIService {
     @POST("product/addProduct")
     @Headers({"Content-Type:application/json"})
     Call<Void> addProduct(@Body ProductModel productModel);
-
 }

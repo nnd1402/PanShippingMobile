@@ -12,10 +12,8 @@ import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.api.APIService;
 import com.example.panshippingandroid.api.Service;
 import com.example.panshippingandroid.fragments.AddProductFragment;
-import com.example.panshippingandroid.fragments.FirstFragment;
-import com.example.panshippingandroid.fragments.SecondFragment;
-import com.example.panshippingandroid.fragments.ThirdFragment;
-import com.example.panshippingandroid.model.UserModel;
+import com.example.panshippingandroid.fragments.ViewProductsFragment;
+import com.example.panshippingandroid.fragments.AllProductsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,15 +26,15 @@ public class MainActivity extends AppCompatActivity {
             = item -> {
         Fragment fragment;
         switch (item.getItemId()) {
-            case R.id.first_fragment:
-                fragment = new FirstFragment();
-                replaceFragment(fragment, FirstFragment.TAG);
+            case R.id.products:
+                fragment = new ViewProductsFragment();
+                replaceFragment(fragment, ViewProductsFragment.TAG);
                 return true;
-            case R.id.second_fragment:
-                fragment = new SecondFragment();
-                replaceFragment(fragment, SecondFragment.TAG);
+            case R.id.all_products:
+                fragment = new AllProductsFragment();
+                replaceFragment(fragment, AllProductsFragment.TAG);
                 return true;
-            case R.id.add_fragment:
+            case R.id.add_products:
                 fragment = new AddProductFragment();
                 replaceFragment(fragment, AddProductFragment.TAG);
                 return true;
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(0);
-        replaceFragment(FirstFragment.newInstance(), FirstFragment.TAG);
+        replaceFragment(ViewProductsFragment.newInstance(), ViewProductsFragment.TAG);
     }
 
     private void replaceFragment(Fragment fragment, String TAG) {

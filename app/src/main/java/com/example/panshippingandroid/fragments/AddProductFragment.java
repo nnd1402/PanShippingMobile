@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,6 +53,8 @@ public class AddProductFragment extends Fragment {
     private Button btn_addProduct;
     private boolean isAllFieldsChecked = false;
     private SharedPreferences sharedPreferences;
+    private String image;
+    private ImageUtils imageUtils = new ImageUtils();
 
     public AddProductFragment() {
     }
@@ -66,7 +70,6 @@ public class AddProductFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
-
     }
 
     @Override
@@ -96,7 +99,7 @@ public class AddProductFragment extends Fragment {
                 productModel.setQuantity(Integer.parseInt(et_quantity.getText().toString()));
                 productModel.setDescription(et_description.getText().toString());
                 productModel.setUser(userID);
-                productModel.setProductImage("BASE64");
+                productModel.setImage(image);
                 addProductCall(productModel);
             }
         });
@@ -114,6 +117,10 @@ public class AddProductFragment extends Fragment {
                 n.printStackTrace();
             }
             Bitmap productImage = ImageUtils.getResizedBitmap(bitmap, 800);
+            if (productImage != null) {
+                image = ImageUtils.convertBitmapToStringImage(productImage);
+            }
+
             Glide.with(this)
                     .load(productImage)
                     .error(R.drawable.ic_add)
@@ -163,7 +170,7 @@ public class AddProductFragment extends Fragment {
                 if (response.code() == HttpURLConnection.HTTP_CREATED) {
                     Toast.makeText(getActivity(), R.string.successfully_added_product, Toast.LENGTH_SHORT).show();
                     FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-                    fr.replace(R.id.container, FirstFragment.newInstance());
+                    fr.replace(R.id.container, ViewProductsFragment.newInstance());
                     fr.commit();
                 } else {
                     Toast.makeText(getActivity(), R.string.was_not_added_product, Toast.LENGTH_SHORT).show();

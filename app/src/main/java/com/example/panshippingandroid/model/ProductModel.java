@@ -1,6 +1,8 @@
 package com.example.panshippingandroid.model;
 
+
 import lombok.Data;
+
 
 @Data
 public class ProductModel {
@@ -9,7 +11,7 @@ public class ProductModel {
     private double price;
     private int quantity;
     private String description;
-    private String productImage;
+    private String image;
     private Long user;
 }
 
