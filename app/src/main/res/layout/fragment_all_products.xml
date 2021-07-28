@@ -1,14 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:padding="20dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp"/>
-</RelativeLayout>
+        android:layout_marginBottom="40dp" />
+
+    <TextView
+        android:id="@+id/tv_null_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="The list is empty!"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:indicatorColor="@color/teal_200"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="181dp"
+        tools:layout_editor_absoluteY="297dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 

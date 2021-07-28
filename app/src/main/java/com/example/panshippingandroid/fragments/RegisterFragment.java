@@ -83,8 +83,8 @@ public class RegisterFragment extends Fragment {
             isAllFieldsChecked = CheckAllFields();
             if (isAllFieldsChecked) {
                 UserModel userModel = new UserModel();
-                userModel.setFirstname(et_firstName.getText().toString());
-                userModel.setLastname(et_lastName.getText().toString());
+                userModel.setFirstName(et_firstName.getText().toString());
+                userModel.setLastName(et_lastName.getText().toString());
                 userModel.setUsername(et_userName.getText().toString());
                 userModel.setEmail(et_email.getText().toString());
                 userModel.setPassword(et_password.getText().toString());
@@ -164,9 +164,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_CREATED) {
-                    FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-                    fr.replace(R.id.fragment_container, LoginFragment.newInstance());
-                    fr.commit();
+                    replaceFragment(new LoginFragment());
                 } else {
                     Toast.makeText(getActivity(), "Don't have response!", Toast.LENGTH_SHORT).show();
                 }
@@ -177,5 +175,11 @@ public class RegisterFragment extends Fragment {
                 call.cancel();
             }
         });
+    }
+
+    private void replaceFragment(Fragment fragment) {
+        FragmentTransaction fr = getParentFragmentManager().beginTransaction();
+        fr.replace(R.id.fragment_container, fragment);
+        fr.commit();
     }
 }

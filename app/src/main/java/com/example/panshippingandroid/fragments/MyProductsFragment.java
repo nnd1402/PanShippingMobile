@@ -9,10 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.panshippingandroid.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class MyProductsFragment extends Fragment {
 
     public static final String TAG = "My products fragment";
+    private FloatingActionButton addItemButton;
 
     public static MyProductsFragment newInstance() {
         MyProductsFragment fragment = new MyProductsFragment();

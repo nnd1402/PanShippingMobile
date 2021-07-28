@@ -23,10 +23,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
     @NonNull
     @Override
     public Fragment createFragment(int position) {
-        MyProductsFragment myProductsFragment = new MyProductsFragment();
-        fragments.add(myProductsFragment);
         AllProductsFragment allProductsFragment = new AllProductsFragment();
         fragments.add(allProductsFragment);
+        MyProductsFragment myProductsFragment = new MyProductsFragment();
+        fragments.add(myProductsFragment);
         return fragments.get(position);
     }
 

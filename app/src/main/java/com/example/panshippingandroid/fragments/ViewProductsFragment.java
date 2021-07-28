@@ -1,5 +1,6 @@
 package com.example.panshippingandroid.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,7 +27,7 @@ public class ViewProductsFragment extends Fragment {
 
     public static final String TAG = "View products fragment";
     private ViewPager2 viewPager;
-    TabLayout tabLayout;
+    private TabLayout tabLayout;
     private FloatingActionButton addItemButton;
     private ViewPagerAdapter viewPagerAdapter;
 
@@ -70,8 +71,8 @@ public class ViewProductsFragment extends Fragment {
         new TabLayoutMediator(tabLayout, viewPager,
                 (tab, position) -> {
                     List<String> tabNames = new ArrayList<>();
-                    tabNames.add("My products");
                     tabNames.add("All products");
+                    tabNames.add("My products");
                     tab.setText(tabNames.get(position));
                 }
         ).attach();

@@ -5,11 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +18,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.bumptech.glide.Glide;
 import com.example.panshippingandroid.R;
+import com.example.panshippingandroid.model.ProductDto;
 import com.example.panshippingandroid.model.ProductModel;
 import com.example.panshippingandroid.utils.ImageUtils;
+import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -44,7 +45,7 @@ import static com.example.panshippingandroid.utils.Const.USER_ID;
 
 public class AddProductFragment extends Fragment {
 
-    public static final String TAG = "Add product fragment";
+    public static final String TAG = "Add products fragment";
     private EditText et_name;
     private EditText et_price;
     private EditText et_quantity;
@@ -54,7 +55,9 @@ public class AddProductFragment extends Fragment {
     private boolean isAllFieldsChecked = false;
     private SharedPreferences sharedPreferences;
     private String image;
-    private ImageUtils imageUtils = new ImageUtils();
+    private ImageView iv_cancel;
+    boolean isEdit;
+    private Long id;
 
     public AddProductFragment() {
     }
@@ -81,28 +84,67 @@ public class AddProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (getArguments() != null) {
+            isEdit = getArguments().getBoolean("isEdit");
+            id = getArguments().getLong("productId");
+        }
         initUI();
-        Long userID = sharedPreferences.getLong(USER_ID, 0);
-        iv_addImage.setOnClickListener(v -> {
-            Intent intent = new Intent();
-            intent.setType("image/*");
-            intent.setAction(Intent.ACTION_GET_CONTENT);
-            startActivityForResult(Intent.createChooser(intent,
-                    "Select Picture"), SELECT_PICTURE);
-        });
-        btn_addProduct.setOnClickListener(v -> {
-            isAllFieldsChecked = CheckAllFields();
-            if (isAllFieldsChecked) {
-                ProductModel productModel = new ProductModel();
+
+        if (isEdit) {
+           getProductCall(id);
+
+        } else {
+            Long userID = sharedPreferences.getLong(USER_ID, 0);
+            iv_addImage.setOnClickListener(this::onClick);
+            btn_addProduct.setOnClickListener(v -> {
+
+                if (isEdit){
+                    editProduct(id,setProduct(userID));
+                }else {
+
+                    addProductCall(setProduct(userID));
+                }
+            });
+            if (iv_addImage != null) {
+                iv_cancel.setVisibility(View.GONE);
+            } else {
+                iv_cancel.setVisibility(View.VISIBLE);
+                iv_cancel.setOnClickListener(v -> {
+                    //back
+                });
+            }
+        }
+
+    }
+
+    private void editProduct(Long id, ProductModel setProduct) {
+        ProductModel productModel = new ProductModel();
+        if (productModel != null){
+            if (isAllFieldsChecked){
                 productModel.setName(et_name.getText().toString());
                 productModel.setPrice(Double.parseDouble(et_price.getText().toString()));
                 productModel.setQuantity(Integer.parseInt(et_quantity.getText().toString()));
                 productModel.setDescription(et_description.getText().toString());
-                productModel.setUser(userID);
                 productModel.setImage(image);
-                addProductCall(productModel);
             }
-        });
+        }
+    }
+
+    private ProductModel setProduct(Long userID) {
+        isAllFieldsChecked = CheckAllFields();
+        ProductModel productModel = new ProductModel();
+        if (isAllFieldsChecked) {
+
+            productModel.setName(et_name.getText().toString());
+            productModel.setPrice(Double.parseDouble(et_price.getText().toString()));
+            productModel.setQuantity(Integer.parseInt(et_quantity.getText().toString()));
+            productModel.setDescription(et_description.getText().toString());
+            productModel.setUser(userID);
+            productModel.setImage(image);
+
+        }
+        return productModel;
     }
 
     @Override
@@ -116,7 +158,7 @@ public class AddProductFragment extends Fragment {
             } catch (NullPointerException | IOException n) {
                 n.printStackTrace();
             }
-            Bitmap productImage = ImageUtils.getResizedBitmap(bitmap, 800);
+            Bitmap productImage = ImageUtils.getResizedBitmap(bitmap, 400);
             if (productImage != null) {
                 image = ImageUtils.convertBitmapToStringImage(productImage);
             }
@@ -136,6 +178,7 @@ public class AddProductFragment extends Fragment {
         et_description = requireView().findViewById(R.id.et_description);
         iv_addImage = requireView().findViewById(R.id.iv_addImage);
         btn_addProduct = requireView().findViewById(R.id.btn_addProduct);
+        iv_cancel = requireView().findViewById(R.id.iv_cancel);
     }
 
     private boolean CheckAllFields() {
@@ -162,6 +205,43 @@ public class AddProductFragment extends Fragment {
         return true;
     }
 
+
+    public void getProductCall(Long id) {
+        Call<ProductDto> call = apiService.getProduct(id);
+        call.enqueue(new Callback<ProductDto>() {
+            @Override
+            public void onResponse(@NonNull Call<ProductDto> call, @NonNull Response<ProductDto> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    ProductDto product = response.body();
+                    if (product != null) {
+                        et_name.setText(product.getName());
+                        et_price.setText(String.valueOf(product.getPrice()));
+                        et_quantity.setText(String.valueOf(product.getQuantity()));
+                        et_description.setText(product.getDescription());
+                    }
+                    if (product.getImage() != null) {
+                        Glide.with(requireContext())
+                                .load(ImageUtils.convertStringImageToBitmap(product.getImage()))
+                                .override(400, 400)
+                                .into(iv_addImage);
+                    } else {
+                        Glide.with(requireContext())
+                                .load(AppCompatResources.getDrawable(requireContext(), R.drawable.sale))
+                                .override(400, 400)
+                                .into(iv_addImage);
+                    }
+
+                } else {
+                    Toast.makeText(getActivity(), R.string.was_not_added_product, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ProductDto> call, @NonNull Throwable t) {
+                call.cancel();
+            }
+        });
+    }
     public void addProductCall(ProductModel productModel) {
         Call<Void> call = apiService.addProduct(productModel);
         call.enqueue(new Callback<Void>() {
@@ -182,5 +262,13 @@ public class AddProductFragment extends Fragment {
                 call.cancel();
             }
         });
+    }
+
+    private void onClick(View v) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECT_PICTURE);
     }
 }

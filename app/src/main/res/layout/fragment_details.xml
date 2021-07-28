@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main_done"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/iv_detail"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/sale"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_buy"
+        app:layout_constraintLeft_toLeftOf="@+id/activity_main_done"
+        app:layout_constraintRight_toRightOf="@+id/activity_main_done"
+        app:layout_constraintTop_toTopOf="@+id/activity_main_done" />
+
+    <ImageView
+        android:id="@+id/iv_buy"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/info_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="5dp"
+        android:src="@drawable/add"
+        app:layout_constraintBottom_toBottomOf="@+id/activity_main_done"
+        app:layout_constraintRight_toRightOf="@+id/activity_main_done"
+        app:layout_constraintTop_toTopOf="@+id/activity_main_done"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:id="@+id/tv_name_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:text="Name"
+        android:textSize="36dp"
+        app:layout_constraintLeft_toLeftOf="@+id/activity_main_done"
+        app:layout_constraintTop_toBottomOf="@+id/iv_detail" />
+
+    <TextView
+        android:id="@+id/tv_des_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:labelFor="@+id/cameraType"
+        android:text="Description"
+        android:textSize="24sp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_det"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/tv_price_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="184dp"
+        android:text="10 €"
+        android:textSize="24sp"
+        app:layout_constraintStart_toEndOf="@+id/tv_des_det"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteY="670dp" />
+
+    <EditText
+        android:id="@+id/et_qua_det"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="48dp"
+        android:labelFor="@+id/cameraType"
+        android:text="Quantity"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toStartOf="@+id/tv_price_det"
+        app:layout_constraintTop_toBottomOf="@+id/tv_des_det"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
