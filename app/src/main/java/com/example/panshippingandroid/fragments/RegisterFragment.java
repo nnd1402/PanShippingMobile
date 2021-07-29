@@ -155,7 +155,6 @@ public class RegisterFragment extends Fragment {
         }
         Toast.makeText(getActivity(), R.string.successfully_registration, Toast.LENGTH_SHORT).show();
         return true;
-
     }
 
     public void registerCall(UserModel userModel) {

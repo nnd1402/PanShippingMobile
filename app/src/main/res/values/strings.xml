@@ -27,4 +27,5 @@
     <string name="products">Products</string>
     <string name="my_products">My Products</string>
     <string name="all_products">All Products</string>
+    <string name="was_not_change_product">"\The product was not changed successfully!\" "</string>
 </resources>

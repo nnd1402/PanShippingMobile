@@ -8,10 +8,10 @@
         android:title="Products"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/all_products"
+        android:id="@+id/buy_products"
         android:enabled="true"
         android:icon="@drawable/fragment"
-        android:title="Second Fragment"
+        android:title="Buy Products"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/add_products"

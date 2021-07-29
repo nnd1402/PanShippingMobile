@@ -87,9 +87,9 @@ public class ViewProductsFragment extends Fragment {
 
     private void hideFAB(TabLayout.Tab tab) {
         if (tab.getPosition() == 0) {
-            addItemButton.setVisibility(View.VISIBLE);
-        } else {
             addItemButton.setVisibility(View.GONE);
+        } else {
+            addItemButton.setVisibility(View.VISIBLE);
         }
     }
 

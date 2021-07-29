@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".fragments.MyProductsFragment">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp"/>
+        android:layout_marginBottom="40dp" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/tv_null_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="The list is empty!"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+

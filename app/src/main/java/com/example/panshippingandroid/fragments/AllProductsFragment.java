@@ -1,6 +1,12 @@
 package com.example.panshippingandroid.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -8,15 +14,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
 import com.example.panshippingandroid.R;
-import com.example.panshippingandroid.adapters.RecyclerViewAdapter;
+import com.example.panshippingandroid.adapters.AllProductAdapter;
 import com.example.panshippingandroid.model.ProductDto;
 
 import java.net.HttpURLConnection;
@@ -28,15 +27,18 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.example.panshippingandroid.activities.LoginActivity.apiService;
+import static com.example.panshippingandroid.utils.Const.AUTHENTICATION_FILE_NAME;
+import static com.example.panshippingandroid.utils.Const.USER_ID;
 
 public class AllProductsFragment extends Fragment {
 
     public static final String TAG = "All products fragment";
-    private RecyclerViewAdapter recyclerViewAdapter;
+    private AllProductAdapter allProductAdapter;
     private RecyclerView recyclerView;
     private List<ProductDto> list = new ArrayList<>();
     private TextView textView;
-    private ProgressBar progress;
+    private SharedPreferences sharedPreferences;
+    private Long userId;
 
     public static AllProductsFragment newInstance() {
         AllProductsFragment fragment = new AllProductsFragment();
@@ -57,6 +59,8 @@ public class AllProductsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
+        userId = sharedPreferences.getLong(USER_ID, 0);
         initUI();
         getProductCall();
     }
@@ -70,7 +74,6 @@ public class AllProductsFragment extends Fragment {
     private void initUI() {
         recyclerView = requireView().findViewById(R.id.recycleView);
         textView = requireView().findViewById(R.id.tv_null_list);
-        progress = requireView().findViewById(R.id.progress);
     }
 
     public void getProductCall() {
@@ -84,24 +87,13 @@ public class AllProductsFragment extends Fragment {
                     list = response.body();
                     if (list.size() == 0) {
                         textView.setVisibility(View.VISIBLE);
-                        progress.setProgress(0);
-                        progress.setSecondaryProgress(100);
-                        progress.setMax(100);
                     } else {
-                        progress.setVisibility(View.GONE);
                         textView.setVisibility(View.GONE);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);
-                        recyclerViewAdapter = new RecyclerViewAdapter(getContext(), getParentFragmentManager(), list);
-
-                        recyclerView.setAdapter(recyclerViewAdapter);
+                        allProductAdapter = new AllProductAdapter(getContext(), getParentFragmentManager(), list);
+                        recyclerView.setAdapter(allProductAdapter);
                     }
-                    //Toast.makeText(getActivity(), R.string.successfully_added_product, Toast.LENGTH_SHORT).show();
-//                    FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-//                    fr.replace(R.id.container, ViewProductsFragment.newInstance());
-//                    fr.commit();
-                } else {
-                    //Toast.makeText(getActivity(), R.string.was_not_added_product, Toast.LENGTH_SHORT).show();
                 }
             }
 

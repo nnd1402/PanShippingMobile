@@ -42,18 +42,19 @@ public interface APIService {
     @Headers({"Content-Type:application/json"})
     Call<List<ProductDto>> getAllProducts();
 
-    @DELETE("product/{id}")
+    @GET("getProductsByUserId/{id}")
     @Headers({"Content-Type:application/json"})
-    Call<Void> deleteProduct(@Path("id") Long id);
-
-    @PUT("product/editProduct/{id}")
-    @Headers({"Content-Type:application/json"})
-    Call<Void> editProduct(@Path("id") Long id, @Body ProductDto productModel);
+    Call<List<ProductDto>> getMyProducts(@Path("id")Long id);
 
     @GET("product/{id}")
     @Headers({"Content-Type:application/json"})
     Call<ProductDto> getProduct(@Path("id") Long id);
 
+    @DELETE("product/{id}")
+    @Headers({"Content-Type:application/json"})
+    Call<Void> deleteProduct(@Path("id") Long id);
 
-
+    @PUT("product/{id}")
+    @Headers({"Content-Type:application/json"})
+    Call<Void> editProduct(@Path("id") Long id, @Body ProductModel productModel);
 }

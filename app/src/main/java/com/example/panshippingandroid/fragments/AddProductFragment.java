@@ -27,7 +27,6 @@ import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.model.ProductDto;
 import com.example.panshippingandroid.model.ProductModel;
 import com.example.panshippingandroid.utils.ImageUtils;
-import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -42,7 +41,6 @@ import static com.example.panshippingandroid.utils.Const.PICK_IMAGE;
 import static com.example.panshippingandroid.utils.Const.SELECT_PICTURE;
 import static com.example.panshippingandroid.utils.Const.USER_ID;
 
-
 public class AddProductFragment extends Fragment {
 
     public static final String TAG = "Add products fragment";
@@ -55,7 +53,6 @@ public class AddProductFragment extends Fragment {
     private boolean isAllFieldsChecked = false;
     private SharedPreferences sharedPreferences;
     private String image;
-    private ImageView iv_cancel;
     boolean isEdit;
     private Long id;
 
@@ -84,7 +81,10 @@ public class AddProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        edit();
+    }
 
+    public void edit() {
         if (getArguments() != null) {
             isEdit = getArguments().getBoolean("isEdit");
             id = getArguments().getLong("productId");
@@ -92,57 +92,59 @@ public class AddProductFragment extends Fragment {
         initUI();
 
         if (isEdit) {
-           getProductCall(id);
-
-        } else {
-            Long userID = sharedPreferences.getLong(USER_ID, 0);
-            iv_addImage.setOnClickListener(this::onClick);
+            getProductCall(id);
+            btn_addProduct.setText("Edit");
+            iv_addImage.setOnClickListener(this::setImage);
             btn_addProduct.setOnClickListener(v -> {
-
-                if (isEdit){
-                    editProduct(id,setProduct(userID));
-                }else {
-
-                    addProductCall(setProduct(userID));
+                if (isEdit) {
+                    Long userID = sharedPreferences.getLong(USER_ID, 0);
+                    btn_addProduct.setText("Edit");
+                    editProductCall(id, setProduct(userID));
                 }
             });
-            if (iv_addImage != null) {
-                iv_cancel.setVisibility(View.GONE);
-            } else {
-                iv_cancel.setVisibility(View.VISIBLE);
-                iv_cancel.setOnClickListener(v -> {
-                    //back
-                });
-            }
-        }
+        } else {
 
+            iv_addImage.setOnClickListener(this::setImage);
+            btn_addProduct.setOnClickListener(v -> {
+                Long userID = sharedPreferences.getLong(USER_ID, 0);
+                addProductCall(setProduct(userID));
+
+            });
+        }
     }
 
-    private void editProduct(Long id, ProductModel setProduct) {
-        ProductModel productModel = new ProductModel();
-        if (productModel != null){
-            if (isAllFieldsChecked){
-                productModel.setName(et_name.getText().toString());
-                productModel.setPrice(Double.parseDouble(et_price.getText().toString()));
-                productModel.setQuantity(Integer.parseInt(et_quantity.getText().toString()));
-                productModel.setDescription(et_description.getText().toString());
-                productModel.setImage(image);
+    public void editProductCall(Long id, ProductModel product) {
+        Call<Void> call = apiService.editProduct(id, product);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK || response.code() == HttpURLConnection.HTTP_CREATED) {
+                    FragmentTransaction fr = getParentFragmentManager().beginTransaction();
+                    fr.replace(R.id.container, ViewProductsFragment.newInstance());
+                    fr.commit();
+                } else {
+                    Toast.makeText(getActivity(), R.string.was_not_change_product, Toast.LENGTH_SHORT).show();
+                }
             }
-        }
+
+            @Override
+            public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                call.cancel();
+            }
+        });
     }
 
     private ProductModel setProduct(Long userID) {
         isAllFieldsChecked = CheckAllFields();
         ProductModel productModel = new ProductModel();
         if (isAllFieldsChecked) {
-
+            productModel.setId(id);
             productModel.setName(et_name.getText().toString());
             productModel.setPrice(Double.parseDouble(et_price.getText().toString()));
             productModel.setQuantity(Integer.parseInt(et_quantity.getText().toString()));
             productModel.setDescription(et_description.getText().toString());
             productModel.setUser(userID);
             productModel.setImage(image);
-
         }
         return productModel;
     }
@@ -158,6 +160,7 @@ public class AddProductFragment extends Fragment {
             } catch (NullPointerException | IOException n) {
                 n.printStackTrace();
             }
+            assert bitmap != null;
             Bitmap productImage = ImageUtils.getResizedBitmap(bitmap, 400);
             if (productImage != null) {
                 image = ImageUtils.convertBitmapToStringImage(productImage);
@@ -166,7 +169,7 @@ public class AddProductFragment extends Fragment {
             Glide.with(this)
                     .load(productImage)
                     .error(R.drawable.ic_add)
-                    .override(1000, 800)
+                    .override(400, 400)
                     .into(iv_addImage);
         }
     }
@@ -178,7 +181,6 @@ public class AddProductFragment extends Fragment {
         et_description = requireView().findViewById(R.id.et_description);
         iv_addImage = requireView().findViewById(R.id.iv_addImage);
         btn_addProduct = requireView().findViewById(R.id.btn_addProduct);
-        iv_cancel = requireView().findViewById(R.id.iv_cancel);
     }
 
     private boolean CheckAllFields() {
@@ -201,10 +203,8 @@ public class AddProductFragment extends Fragment {
             Toast.makeText(getActivity(), R.string.select_image, Toast.LENGTH_SHORT).show();
             return false;
         }
-
         return true;
     }
-
 
     public void getProductCall(Long id) {
         Call<ProductDto> call = apiService.getProduct(id);
@@ -219,18 +219,19 @@ public class AddProductFragment extends Fragment {
                         et_quantity.setText(String.valueOf(product.getQuantity()));
                         et_description.setText(product.getDescription());
                     }
-                    if (product.getImage() != null) {
-                        Glide.with(requireContext())
-                                .load(ImageUtils.convertStringImageToBitmap(product.getImage()))
-                                .override(400, 400)
-                                .into(iv_addImage);
-                    } else {
-                        Glide.with(requireContext())
-                                .load(AppCompatResources.getDrawable(requireContext(), R.drawable.sale))
-                                .override(400, 400)
-                                .into(iv_addImage);
+                    if (product != null) {
+                        if (product.getImage() != null) {
+                            Glide.with(requireContext())
+                                    .load(ImageUtils.convertStringImageToBitmap(product.getImage()))
+                                    .override(400, 400)
+                                    .into(iv_addImage);
+                        } else {
+                            Glide.with(requireContext())
+                                    .load(AppCompatResources.getDrawable(requireContext(), R.drawable.sale))
+                                    .override(400, 400)
+                                    .into(iv_addImage);
+                        }
                     }
-
                 } else {
                     Toast.makeText(getActivity(), R.string.was_not_added_product, Toast.LENGTH_SHORT).show();
                 }
@@ -242,6 +243,7 @@ public class AddProductFragment extends Fragment {
             }
         });
     }
+
     public void addProductCall(ProductModel productModel) {
         Call<Void> call = apiService.addProduct(productModel);
         call.enqueue(new Callback<Void>() {
@@ -264,11 +266,15 @@ public class AddProductFragment extends Fragment {
         });
     }
 
-    private void onClick(View v) {
+    private void setImage(View v) {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent,
                 "Select Picture"), SELECT_PICTURE);
+    }
+
+    private void onBack(View v) {
+        getFragmentManager().popBackStackImmediate();
     }
 }

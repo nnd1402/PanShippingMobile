@@ -36,30 +36,32 @@ import retrofit2.Response;
 
 import static com.example.panshippingandroid.activities.LoginActivity.apiService;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MyViewHolder> {
+public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyViewHolder> {
 
     private final Context context;
     private List<ProductDto> productModels;
     private FragmentManager fragmentManager;
     private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+    public Long userId;
 
-    public RecyclerViewAdapter(Context context, FragmentManager fragmentManager, List<ProductDto> productDtoList) {
+    public MyProductAdapter(Context context, FragmentManager fragmentManager, List<ProductDto> productDtoList, Long userId) {
         this.context = context;
         this.productModels = productDtoList;
         this.fragmentManager = fragmentManager;
+        this.userId = userId;
         viewBinderHelper.setOpenOnlyOne(true);
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyProductAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.rv_single_item, parent, false);
-        return new MyViewHolder(view);
+        return new MyProductAdapter.MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyProductAdapter.MyViewHolder holder, int position) {
 
         holder.tv_name.setText(productModels.get(position).getName());
         holder.tv_price.setText(String.valueOf(productModels.get(position).getPrice()));
@@ -78,13 +80,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         holder.btn_edit.setOnClickListener(v -> {
-            replaceFragment(new AddProductFragment(),productModels.get(position).getId());
+            replaceFragment(new AddProductFragment(), productModels.get(position).getId());
         });
 
         holder.btn_delete.setOnClickListener(v ->
                 new AlertDialog.Builder(context).setTitle("Do you want to delete a product?")
                         .setPositiveButton("Yes", (dialog, which) ->
-                                RecyclerViewAdapter
+                                MyProductAdapter
                                         .this
                                         .deleteProduct(productModels.get(position).getId()))
                         .setNegativeButton("No", null)
@@ -92,7 +94,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     public void getProductCall() {
-        Call<List<ProductDto>> call = apiService.getAllProducts();
+        Call<List<ProductDto>> call = apiService.getMyProducts(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override
             public void onResponse(@NonNull Call<List<ProductDto>> call, @NonNull Response<List<ProductDto>> response) {
@@ -138,10 +140,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return productModels.size();
     }
 
-    private void replaceFragment(Fragment fragment,Long id) {
+    private void replaceFragment(Fragment fragment, Long id) {
         Bundle args = new Bundle();
-        args.putBoolean("isEdit",true);
-        args.putLong("productId",id);
+        args.putBoolean("isEdit", true);
+        args.putLong("productId", id);
         fragment.setArguments(args);
         FragmentTransaction fr = fragmentManager.beginTransaction();
         fr.replace(R.id.container, fragment);
@@ -168,5 +170,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
     }
 }
+
 
 
