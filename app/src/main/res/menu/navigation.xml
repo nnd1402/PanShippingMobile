@@ -11,12 +11,12 @@
         android:id="@+id/buy_products"
         android:enabled="true"
         android:icon="@drawable/fragment"
-        android:title="Buy Products"
+        android:title="Shipped Products"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/add_products"
         android:enabled="true"
         android:icon="@drawable/fragment"
-        android:title="Add Product"
+        android:title="My profile"
         app:showAsAction="ifRoom" />
 </menu>

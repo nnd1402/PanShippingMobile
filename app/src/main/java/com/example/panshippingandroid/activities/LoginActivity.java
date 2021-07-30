@@ -22,9 +22,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         apiService = Service.getInstance(this).create(APIService.class);
-        FragmentTransaction fr = getSupportFragmentManager().beginTransaction();
-        fr.replace(R.id.fragment_container, LoginFragment.newInstance());
-        fr.commit();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, LoginFragment.newInstance());
+        fragmentTransaction.commit();
     }
 
     @Override

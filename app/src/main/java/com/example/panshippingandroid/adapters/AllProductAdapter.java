@@ -47,19 +47,19 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.My
     @Override
     public void onBindViewHolder(@NonNull AllProductAdapter.MyViewHolder holder, int position) {
 
-        holder.tv_details_name.setText(productModels.get(position).getName());
-        holder.tv_details_price.setText(String.valueOf(productModels.get(position).getPrice()));
+        holder.byNameTv.setText(productModels.get(position).getName());
+        holder.byPriceTv.setText(new StringBuilder().append((productModels.get(position).getPrice())).append(" €").toString());
 
         if (productModels.get(position).getImage() != null) {
             Glide.with(context)
                     .load(ImageUtils.convertStringImageToBitmap(productModels.get(position).getImage()))
                     .override(400, 400)
-                    .into(holder.iv_details);
+                    .into(holder.byImageIv);
         } else {
             Glide.with(context)
                     .load(AppCompatResources.getDrawable(context, R.drawable.sale))
                     .override(400, 400)
-                    .into(holder.iv_details);
+                    .into(holder.byImageIv);
         }
 
         holder.parentCard.setOnClickListener(v -> {
@@ -71,10 +71,10 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.My
         Bundle args = new Bundle();
         args.putLong("productId", id);
         fragment.setArguments(args);
-        FragmentTransaction fr = fragmentManager.beginTransaction();
-        fr.replace(R.id.container, fragment);
-        fr.addToBackStack(null);
-        fr.commit();
+        FragmentTransaction FragmentTransaction = fragmentManager.beginTransaction();
+        FragmentTransaction.replace(R.id.container, fragment);
+        FragmentTransaction.addToBackStack(null);
+        FragmentTransaction.commit();
     }
 
     @Override
@@ -84,16 +84,16 @@ public class AllProductAdapter extends RecyclerView.Adapter<AllProductAdapter.My
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView tv_details_name;
-        private final TextView tv_details_price;
-        private final ImageView iv_details;
+        private final TextView byNameTv;
+        private final TextView byPriceTv;
+        private final ImageView byImageIv;
         private final CardView parentCard;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tv_details_name = itemView.findViewById(R.id.tv_details_name);
-            tv_details_price = itemView.findViewById(R.id.tv_details_price);
-            iv_details = itemView.findViewById(R.id.iv_details);
+            byNameTv = itemView.findViewById(R.id.byNameTv);
+            byPriceTv = itemView.findViewById(R.id.byPriceTv);
+            byImageIv = itemView.findViewById(R.id.byImageIv);
             parentCard = itemView.findViewById(R.id.parent_card);
         }
     }

@@ -25,19 +25,18 @@
                 android:id="@+id/ivImage"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_alignTop="@+id/rv_name"
                 android:layout_alignParentStart="true"
                 app:cardCornerRadius="50dp">
 
                 <ImageView
-                    android:id="@+id/iv_details"
+                    android:id="@+id/byImageIv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY" />
             </androidx.cardview.widget.CardView>
 
             <TextView
-                android:id="@+id/tv_details_name"
+                android:id="@+id/byNameTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="12dp"
@@ -47,12 +46,12 @@
                 tools:text="Name" />
 
             <TextView
-                android:id="@+id/tv_details_price"
+                android:id="@+id/byPriceTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="97dp"
                 android:layout_marginBottom="5dp"
-                android:layout_toRightOf="@+id/tv_details_name"
+                android:layout_toRightOf="@+id/byNameTv"
                 android:textColor="@color/teal_200"
                 android:textSize="18sp"
                 android:textStyle="bold"

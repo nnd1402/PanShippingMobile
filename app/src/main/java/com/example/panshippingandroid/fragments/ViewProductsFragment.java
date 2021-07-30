@@ -1,18 +1,15 @@
 package com.example.panshippingandroid.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.adapters.ViewPagerAdapter;
@@ -25,7 +22,6 @@ import java.util.List;
 
 public class ViewProductsFragment extends Fragment {
 
-    public static final String TAG = "View products fragment";
     private ViewPager2 viewPager;
     private TabLayout tabLayout;
     private FloatingActionButton addItemButton;
@@ -77,10 +73,10 @@ public class ViewProductsFragment extends Fragment {
                 }
         ).attach();
         addItemButton.setOnClickListener(v -> {
-            FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-            fr.addToBackStack(null);
-            fr.replace(R.id.container, AddProductFragment.newInstance());
-            fr.commit();
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.container, AddProductFragment.newInstance());
+            fragmentTransaction.commit();
         });
 
     }

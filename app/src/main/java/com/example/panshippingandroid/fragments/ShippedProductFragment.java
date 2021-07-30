@@ -16,8 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.panshippingandroid.R;
-import com.example.panshippingandroid.adapters.BuyProductAdapter;
-import com.example.panshippingandroid.adapters.MyProductAdapter;
+import com.example.panshippingandroid.activities.MainActivity;
+import com.example.panshippingandroid.adapters.ShippedProductAdapter;
 import com.example.panshippingandroid.model.ProductDto;
 
 import java.net.HttpURLConnection;
@@ -33,24 +33,24 @@ import static com.example.panshippingandroid.utils.Const.AUTHENTICATION_FILE_NAM
 import static com.example.panshippingandroid.utils.Const.USER_ID;
 
 
-public class BuyProductFragment extends Fragment {
+public class ShippedProductFragment extends Fragment {
 
-    public static final String TAG = "Buy products fragment";
-    private BuyProductAdapter buyProductFragment;
+    private ShippedProductAdapter buyProductAdapter;
     private RecyclerView recyclerView;
     private List<ProductDto> list = new ArrayList<>();
     private TextView textView;
     private SharedPreferences sharedPreferences;
     private Long userId;
+    private MainActivity activity;
 
-    public static BuyProductFragment newInstance() {
-        BuyProductFragment fragment = new BuyProductFragment();
+    public static ShippedProductFragment newInstance() {
+        ShippedProductFragment fragment = new ShippedProductFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
 
-    public BuyProductFragment() {
+    public ShippedProductFragment() {
     }
 
     @Override
@@ -65,13 +65,13 @@ public class BuyProductFragment extends Fragment {
         sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getLong(USER_ID, 0);
         initUI();
-        getProductCall();
+        getShippedProdactsCall();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getProductCall();
+        getShippedProdactsCall();
     }
 
     private void initUI() {
@@ -79,8 +79,8 @@ public class BuyProductFragment extends Fragment {
         textView = requireView().findViewById(R.id.tv_null_list);
     }
 
-    public void getProductCall() {
-        Call<List<ProductDto>> call = apiService.getAllProducts();
+    public void getShippedProdactsCall() {
+        Call<List<ProductDto>> call = apiService.getShippedProducts(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override
             public void onResponse(@NonNull Call<List<ProductDto>> call, @NonNull Response<List<ProductDto>> response) {
@@ -94,8 +94,8 @@ public class BuyProductFragment extends Fragment {
                         textView.setVisibility(View.GONE);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);
-                        buyProductFragment = new BuyProductFragment(getContext(), getParentFragmentManager(), list,userId);
-                        recyclerView.setAdapter(buyProductFragment);
+                        buyProductAdapter = new ShippedProductAdapter(getContext(), getParentFragmentManager(),list);
+                        recyclerView.setAdapter(buyProductAdapter);
                     }
                 }
             }

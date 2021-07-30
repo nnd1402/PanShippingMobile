@@ -17,8 +17,9 @@ import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.api.APIService;
 import com.example.panshippingandroid.api.Service;
 import com.example.panshippingandroid.fragments.AddProductFragment;
-import com.example.panshippingandroid.fragments.BuyProductFragment;
+import com.example.panshippingandroid.fragments.ShippedProductFragment;
 import com.example.panshippingandroid.fragments.ViewProductsFragment;
+import com.example.panshippingandroid.utils.Const;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.Objects;
@@ -38,15 +39,15 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.products:
                     fragment = new ViewProductsFragment();
-                    replaceFragment(fragment, ViewProductsFragment.TAG);
+                    replaceFragment(fragment,Const.TAG_VIEW);
                     return true;
                 case R.id.buy_products:
-                    fragment = new BuyProductFragment();
-                    replaceFragment(fragment, BuyProductFragment.TAG);
+                    fragment = new ShippedProductFragment();
+                    replaceFragment(fragment, Const.TAG_SHIPPED);
                     return true;
                 case R.id.add_products:
                     fragment = new AddProductFragment();
-                    replaceFragment(fragment, AddProductFragment.TAG);
+                    replaceFragment(fragment,  Const.TAG_ADD);
                     return true;
             }
             return false;
@@ -62,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         navigation.setSelectedItemId(0);
-        replaceFragment(ViewProductsFragment.newInstance(), ViewProductsFragment.TAG);
+        replaceFragment(ViewProductsFragment.newInstance(), Const.TAG_VIEW);
     }
 
     public void loading_dialog() {

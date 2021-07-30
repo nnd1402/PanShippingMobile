@@ -1,0 +1,122 @@
+package com.example.panshippingandroid.adapters;
+
+import android.content.Context;
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chauthai.swipereveallayout.ViewBinderHelper;
+import com.example.panshippingandroid.R;
+import com.example.panshippingandroid.model.ProductDto;
+import com.example.panshippingandroid.model.ShippingModel;
+
+import java.util.List;
+
+public class ShippedProductAdapter extends RecyclerView.Adapter<ShippedProductAdapter.MyViewHolder> {
+
+    private final Context context;
+    private List<ProductDto> productModels;
+    private FragmentManager fragmentManager;
+    private final ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
+
+    public ShippedProductAdapter(Context context, FragmentManager fragmentManager, List<ProductDto> productDtoList) {
+        this.context = context;
+        this.productModels = productDtoList;
+        this.fragmentManager = fragmentManager;
+        viewBinderHelper.setOpenOnlyOne(true);
+    }
+
+    @NonNull
+    @Override
+    public ShippedProductAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.rv_single_no_swipe_item, parent, false);
+        return new ShippedProductAdapter.MyViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ShippedProductAdapter.MyViewHolder holder, int position) {
+
+//        holder.byNameTv.setText(productModels.get(position).getName());
+//        holder.byPriceTv.setText(String.valueOf(productModels.get(position).getPrice()));
+//
+//        if (productModels.get(position).getImage() != null) {
+//            Glide.with(context)
+//                    .load(ImageUtils.convertStringImageToBitmap(productModels.get(position).getImage()))
+//                    .override(400, 400)
+//                    .into(holder.byImageIv);
+//        } else {
+//            Glide.with(context)
+//                    .load(AppCompatResources.getDrawable(context, R.drawable.sale))
+//                    .override(400, 400)
+//                    .into(holder.byImageIv);
+//        }
+//
+//        holder.parentCard.setOnClickListener(v -> {
+//            replaceFragment(new DetailsFragment(),productModels.get(position).getId());
+//        });
+   }
+//pp
+//    public void getShippingCall() {
+//        Call<List<ShippingModel>> call = apiService.getShippingProducts(userId);
+//        call.enqueue(new Callback<List<ShippingModel>>() {
+//            @Override
+//            public void onResponse(@NonNull Call<List<ShippingModel>> call, @NonNull Response<List<ShippingModel>> response) {
+//                if (response.code() == HttpURLConnection.HTTP_OK) {
+//                    productModels.clear();
+//                    productModels = response.body();
+//                    notifyDataSetChanged();
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(@NonNull Call<List<ShippingModel>> call, @NonNull Throwable t) {
+//                call.cancel();
+//            }
+//        });
+//    }
+
+    private void replaceFragment(Fragment fragment, Long id) {
+        Bundle args = new Bundle();
+        args.putLong("productId",id);
+        fragment.setArguments(args);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return productModels.size();
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
+
+        private final TextView byNameTv;
+        private final TextView byPriceTv;
+        private final ImageView byImageIv;
+        private final CardView parentCard;
+
+        MyViewHolder(@NonNull View itemView) {
+            super(itemView);
+            byNameTv = itemView.findViewById(R.id.byNameTv);
+            byPriceTv = itemView.findViewById(R.id.byPriceTv);
+            byImageIv = itemView.findViewById(R.id.byImageIv);
+            parentCard = itemView.findViewById(R.id.parent_card);
+        }
+    }
+}
+
+

@@ -14,7 +14,6 @@ import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.panshippingandroid.R;
@@ -35,7 +34,6 @@ import static com.example.panshippingandroid.utils.Const.AUTHENTICATION_FILE_NAM
 import static com.example.panshippingandroid.utils.Const.USER_ID;
 
 public class MyProductsFragment extends Fragment {
-    public static final String TAG = "My products fragment";
     private MyProductAdapter myProductAdapter;
     private RecyclerView recyclerView;
     private List<ProductDto> list = new ArrayList<>();

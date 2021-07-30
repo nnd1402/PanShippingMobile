@@ -3,6 +3,7 @@ package com.example.panshippingandroid.api;
 import com.example.panshippingandroid.model.LoginModel;
 import com.example.panshippingandroid.model.ProductDto;
 import com.example.panshippingandroid.model.ProductModel;
+import com.example.panshippingandroid.model.ShippingModel;
 import com.example.panshippingandroid.model.UserModel;
 
 import java.util.List;
@@ -42,7 +43,7 @@ public interface APIService {
     @Headers({"Content-Type:application/json"})
     Call<List<ProductDto>> getAllProducts();
 
-    @GET("getProductsByUserId/{id}")
+    @GET("product/getProductsByUserId/{id}")
     @Headers({"Content-Type:application/json"})
     Call<List<ProductDto>> getMyProducts(@Path("id")Long id);
 
@@ -57,4 +58,16 @@ public interface APIService {
     @PUT("product/{id}")
     @Headers({"Content-Type:application/json"})
     Call<Void> editProduct(@Path("id") Long id, @Body ProductModel productModel);
+
+    @POST("shipping/addShipment")
+    @Headers({"Content-Type:application/json"})
+    Call<Void> addShippingProducts(@Body ShippingModel shipping);
+
+    @GET("shipping/{id}")
+    @Headers({"Content-Type:application/json"})
+    Call<ProductDto> getShippingProducts(@Path("id")Long id);
+
+    @GET("shipping/{userid}")
+    @Headers({"Content-Type:application/json"})
+    Call<List<ProductDto>> getShippedProducts(Long userId);
 }

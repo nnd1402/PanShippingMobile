@@ -3,6 +3,7 @@ package com.example.panshippingandroid.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.panshippingandroid.R;
+import com.example.panshippingandroid.activities.MainActivity;
 import com.example.panshippingandroid.adapters.AllProductAdapter;
 import com.example.panshippingandroid.model.ProductDto;
 
@@ -32,13 +34,13 @@ import static com.example.panshippingandroid.utils.Const.USER_ID;
 
 public class AllProductsFragment extends Fragment {
 
-    public static final String TAG = "All products fragment";
     private AllProductAdapter allProductAdapter;
     private RecyclerView recyclerView;
     private List<ProductDto> list = new ArrayList<>();
     private TextView textView;
     private SharedPreferences sharedPreferences;
     private Long userId;
+    private MainActivity activity;
 
     public static AllProductsFragment newInstance() {
         AllProductsFragment fragment = new AllProductsFragment();
@@ -59,6 +61,7 @@ public class AllProductsFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        activity = (MainActivity) requireActivity();
         sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getLong(USER_ID, 0);
         initUI();
@@ -77,6 +80,11 @@ public class AllProductsFragment extends Fragment {
     }
 
     public void getProductCall() {
+        activity.dialog.show();
+        new Handler().postDelayed(() -> {
+            if (activity.dialog.isShowing())
+                activity.dialog.dismiss();
+        }, 5000);
         Call<List<ProductDto>> call = apiService.getAllProducts();
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override
@@ -84,10 +92,15 @@ public class AllProductsFragment extends Fragment {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     list.clear();
 
+                    if (activity.dialog.isShowing())
+                        activity.dialog.dismiss();
+
                     list = response.body();
                     if (list.size() == 0) {
                         textView.setVisibility(View.VISIBLE);
                     } else {
+                        if (activity.dialog.isShowing())
+                            activity.dialog.dismiss();
                         textView.setVisibility(View.GONE);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);
@@ -100,6 +113,8 @@ public class AllProductsFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<List<ProductDto>> call, @NonNull Throwable t) {
                 call.cancel();
+                if (activity.dialog.isShowing())
+                    activity.dialog.dismiss();
             }
         });
     }

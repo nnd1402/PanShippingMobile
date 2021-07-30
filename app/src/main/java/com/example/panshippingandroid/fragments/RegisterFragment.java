@@ -74,10 +74,10 @@ public class RegisterFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initUI();
         tv_login.setOnClickListener(v -> {
-            FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-            fr.addToBackStack(null);
-            fr.replace(R.id.fragment_container, LoginFragment.newInstance());
-            fr.commit();
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.fragment_container, LoginFragment.newInstance());
+            fragmentTransaction.commit();
         });
         btn_register.setOnClickListener(v -> {
             isAllFieldsChecked = CheckAllFields();

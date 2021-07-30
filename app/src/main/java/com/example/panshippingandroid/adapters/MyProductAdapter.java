@@ -28,6 +28,7 @@ import com.example.panshippingandroid.utils.ImageUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -64,7 +65,7 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
     public void onBindViewHolder(@NonNull MyProductAdapter.MyViewHolder holder, int position) {
 
         holder.tv_name.setText(productModels.get(position).getName());
-        holder.tv_price.setText(String.valueOf(productModels.get(position).getPrice()));
+        holder.tv_price.setText(String.valueOf(productModels.get(position).getPrice()) + " €");
         viewBinderHelper.bind(holder.swipeRevealLayout, String.valueOf(productModels.get(position).getId()));
 
         if (productModels.get(position).getImage() != null) {
@@ -121,9 +122,10 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
 
                     Toast.makeText(context.getApplicationContext(), "Product deleted!", Toast.LENGTH_SHORT).show();
                     getProductCall();
+
                 } else {
                     if (response.errorBody() != null) {
-                        Toast.makeText(context.getApplicationContext(), response.errorBody().toString(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(context.getApplicationContext(), response.body().toString(), Toast.LENGTH_LONG).show();
                     }
                 }
             }
@@ -145,9 +147,9 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
         args.putBoolean("isEdit", true);
         args.putLong("productId", id);
         fragment.setArguments(args);
-        FragmentTransaction fr = fragmentManager.beginTransaction();
-        fr.replace(R.id.container, fragment);
-        fr.commit();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {

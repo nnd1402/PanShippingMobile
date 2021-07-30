@@ -55,7 +55,7 @@ public class LoginFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkSharedPreferences();
+        sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
     }
 
     @Override
@@ -69,10 +69,10 @@ public class LoginFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         initUI();
         register_btn.setOnClickListener(v -> {
-            FragmentTransaction fr = getParentFragmentManager().beginTransaction();
-            fr.addToBackStack(null);
-            fr.replace(R.id.fragment_container, RegisterFragment.newInstance());
-            fr.commit();
+            FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.replace(R.id.fragment_container, RegisterFragment.newInstance());
+            fragmentTransaction.commit();
         });
         login_btn.setOnClickListener(v -> {
             isAllFieldsChecked = fieldUserAndPassword();
@@ -101,10 +101,6 @@ public class LoginFragment extends Fragment {
             return false;
         }
         return true;
-    }
-
-    public void checkSharedPreferences() {
-        sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
     }
 
     private void loginCall(LoginModel loginModel) {
