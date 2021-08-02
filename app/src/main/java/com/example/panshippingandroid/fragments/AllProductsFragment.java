@@ -85,7 +85,7 @@ public class AllProductsFragment extends Fragment {
             if (activity.dialog.isShowing())
                 activity.dialog.dismiss();
         }, 5000);
-        Call<List<ProductDto>> call = apiService.getAllProducts();
+        Call<List<ProductDto>> call = apiService.getAvailableToBuy(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override
             public void onResponse(@NonNull Call<List<ProductDto>> call, @NonNull Response<List<ProductDto>> response) {

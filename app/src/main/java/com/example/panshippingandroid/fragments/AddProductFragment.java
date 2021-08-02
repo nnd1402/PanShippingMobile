@@ -49,6 +49,7 @@ public class AddProductFragment extends Fragment {
     private EditText addQuantityEt;
     private EditText addDescriptionEt;
     private ImageView addImageIv;
+    private ImageView cancelIv;
     private Button addProductBtn;
     private boolean isAllFieldsChecked = false;
     private SharedPreferences sharedPreferences;
@@ -183,6 +184,7 @@ public class AddProductFragment extends Fragment {
         addDescriptionEt = requireView().findViewById(R.id.et_description);
         addImageIv = requireView().findViewById(R.id.iv_addImage);
         addProductBtn = requireView().findViewById(R.id.btn_addProduct);
+        cancelIv = requireView().findViewById(R.id.iv_cancel);
     }
 
     private boolean CheckAllFields() {

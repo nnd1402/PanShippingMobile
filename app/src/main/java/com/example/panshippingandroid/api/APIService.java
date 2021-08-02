@@ -43,7 +43,11 @@ public interface APIService {
     @Headers({"Content-Type:application/json"})
     Call<List<ProductDto>> getAllProducts();
 
-    @GET("product/getProductsByUserId/{id}")
+    @GET("product/getAvailableToBuy/{id}")
+    @Headers({"Content-Type:application/json"})
+    Call<List<ProductDto>> getAvailableToBuy(@Path("id") Long id);
+
+    @GET("product/getProductsByUser/{id}")
     @Headers({"Content-Type:application/json"})
     Call<List<ProductDto>> getMyProducts(@Path("id")Long id);
 
@@ -65,7 +69,7 @@ public interface APIService {
 
     @GET("shipping/{id}")
     @Headers({"Content-Type:application/json"})
-    Call<ProductDto> getShippingProducts(@Path("id")Long id);
+    Call<ProductDto> getShippingProducts(@Path("id") Long id);
 
     @GET("shipping/{userid}")
     @Headers({"Content-Type:application/json"})

@@ -11,5 +11,4 @@ public class ShippingModel {
     private LocalDateTime end;
     private Long userId;
     private Long productId;
-
 }

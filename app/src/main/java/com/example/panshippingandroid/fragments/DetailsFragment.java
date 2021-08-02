@@ -136,7 +136,7 @@ public class DetailsFragment extends Fragment {
                     fragmentTransaction.replace(R.id.container, AddProductFragment.newInstance());
                     fragmentTransaction.commit();
                 } else {
-                    Toast.makeText(getActivity(), R.string.shipped_product, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.shipped_failed, Toast.LENGTH_SHORT).show();
                 }
             }
 
