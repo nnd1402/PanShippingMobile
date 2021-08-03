@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.panshippingandroid.R;
 import com.example.panshippingandroid.activities.MainActivity;
+import com.example.panshippingandroid.adapters.AllProductAdapter;
 import com.example.panshippingandroid.adapters.ShippedProductAdapter;
 import com.example.panshippingandroid.model.ProductDto;
 
@@ -41,7 +42,6 @@ public class ShippedProductFragment extends Fragment {
     private TextView textView;
     private SharedPreferences sharedPreferences;
     private Long userId;
-    private MainActivity activity;
 
     public static ShippedProductFragment newInstance() {
         ShippedProductFragment fragment = new ShippedProductFragment();
@@ -75,7 +75,7 @@ public class ShippedProductFragment extends Fragment {
     }
 
     private void initUI() {
-        recyclerView = requireView().findViewById(R.id.my_recycleView);
+        recyclerView = requireView().findViewById(R.id.recycleView);
         textView = requireView().findViewById(R.id.tv_null_list);
     }
 
@@ -94,7 +94,7 @@ public class ShippedProductFragment extends Fragment {
                         textView.setVisibility(View.GONE);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
                         recyclerView.setLayoutManager(layoutManager);
-                        buyProductAdapter = new ShippedProductAdapter(getContext(), getParentFragmentManager(),list);
+                        buyProductAdapter = new ShippedProductAdapter(getContext(), getParentFragmentManager(), list);
                         recyclerView.setAdapter(buyProductAdapter);
                     }
                 }

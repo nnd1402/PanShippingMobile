@@ -110,10 +110,11 @@ public class DetailsFragment extends Fragment {
                             shipping.setProductId(product.getId());
 
                             shippedCall(shipping);
+                            Toast.makeText(getActivity(), R.string.shipped_product, Toast.LENGTH_SHORT).show();
                         });
                     }
                 } else {
-                    //Toast.makeText(getActivity(), R.string.aaaaa, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getActivity(), R.string., Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -130,10 +131,10 @@ public class DetailsFragment extends Fragment {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-                if (response.code() == HttpURLConnection.HTTP_OK) {
+                if (response.code() == HttpURLConnection.HTTP_CREATED) {
                     FragmentTransaction fragmentTransaction = getParentFragmentManager().beginTransaction();
                     fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.container, AddProductFragment.newInstance());
+                    fragmentTransaction.replace(R.id.container, ShippedProductFragment.newInstance());
                     fragmentTransaction.commit();
                 } else {
                     Toast.makeText(getActivity(), R.string.shipped_failed, Toast.LENGTH_SHORT).show();

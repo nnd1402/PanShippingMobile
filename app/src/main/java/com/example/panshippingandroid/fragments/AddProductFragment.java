@@ -93,6 +93,8 @@ public class AddProductFragment extends Fragment {
         initUI();
 
         if (isEdit) {
+            cancelIv.setVisibility(View.VISIBLE);
+
             getProductCall(id);
             addProductBtn.setText("Edit");
             addImageIv.setOnClickListener(this::setImage);
@@ -110,6 +112,17 @@ public class AddProductFragment extends Fragment {
                 addProductCall(setProduct(userID));
             });
         }
+        cancelIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Glide.with(requireContext())
+                        .load(AppCompatResources.getDrawable(requireContext(), R.drawable.sale))
+                        .override(400, 400)
+                        .into(addImageIv)
+                        .clearOnDetach();
+                cancelIv.setVisibility(View.GONE);
+            }
+        });
     }
 
     public void editProductCall(Long id, ProductModel product) {
@@ -143,7 +156,7 @@ public class AddProductFragment extends Fragment {
             productModel.setQuantity(Integer.parseInt(addQuantityEt.getText().toString()));
             productModel.setDescription(addDescriptionEt.getText().toString());
             productModel.setUser(userID);
-            Bitmap bitmap=((BitmapDrawable)addImageIv.getDrawable()).getBitmap();
+            Bitmap bitmap = ((BitmapDrawable) addImageIv.getDrawable()).getBitmap();
             image = ImageUtils.convertBitmapToStringImage(bitmap);
             productModel.setImage(image);
         }
