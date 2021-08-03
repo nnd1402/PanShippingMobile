@@ -24,4 +24,11 @@
     <string name="successfully_added_product">"\"Successfully added product!\" "</string>
     <string name="was_not_added_product">"\The product was not added successfully!\" "</string>
     <string name="select_image">"\"Picture is not required field!\" "</string>
+    <string name="products">Products</string>
+    <string name="my_products">My Products</string>
+    <string name="all_products">All Products</string>
+    <string name="was_not_change_product">"\The product was not changed successfully!\" "</string>
+    <string name="the_list_is_empty">The list is empty!</string>
+    <string name="shipped_product">Shipped product!</string>
+    <string name="shipped_failed">Shipping failed!</string>
 </resources>

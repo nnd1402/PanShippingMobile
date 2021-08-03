@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dp">
+
+    <TextView
+        android:id="@+id/tvSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/products"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_below="@id/tvSubtitle"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="12dp"
+        app:cardCornerRadius="8dp"
+        app:strokeColor="@color/cardview_light_background"
+        app:strokeWidth="0.5dp">
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            app:tabBackground="@drawable/tab_back"
+            app:tabGravity="fill"
+            app:tabIndicatorColor="@color/teal_200"
+            app:tabIndicatorGravity="stretch"
+            app:tabMaxWidth="1000dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/customTabText"
+            app:tabTextColor="@color/black">
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tl_myProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/all_products" />
+
+            <com.google.android.material.tabs.TabItem
+                android:id="@+id/tl_allProd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/my_products" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/card"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="2dp" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_addNewProd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:background="@color/teal_200"
+        android:scaleType="centerCrop"
+        android:src="@drawable/add"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="297dp"
+        tools:layout_editor_absoluteY="624dp" />
+</RelativeLayout>
+

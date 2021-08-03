@@ -5,14 +5,14 @@ import lombok.Data;
 
 
 @Data
-public class ProductModel {
+public class ProductDto {
     private Long id;
     private String name;
     private double price;
     private int quantity;
     private String description;
     private String image;
-    private Long user;
+    private UserModel user;
 }
 
 
