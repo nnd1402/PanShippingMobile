@@ -67,7 +67,7 @@ public interface APIService {
     @Headers({"Content-Type:application/json"})
     Call<Void> addShippingProducts(@Body ShippingModel shipping);
 
-    @GET("product/getBoughtProductsByUser/{id}")
+    @GET("product/getBoughtProductsByUser/{userId}")
     @Headers({"Content-Type:application/json"})
-    Call<List<ProductDto>> getShippedProducts(@Path("id") Long id);
+    Call<List<ProductDto>> getBoughtProductsByUser(@Path("userId") Long userId);
 }

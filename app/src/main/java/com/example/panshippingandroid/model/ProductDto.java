@@ -19,7 +19,7 @@ public class ProductDto {
     private String description;
     private String image;
     private UserModel user;
-    private List<Shipping> shipping;
+   // private List<Shipping> shipping;
 }
 
 
