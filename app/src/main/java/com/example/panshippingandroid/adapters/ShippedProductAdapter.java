@@ -42,7 +42,7 @@ public class ShippedProductAdapter extends RecyclerView.Adapter<ShippedProductAd
     @Override
     public ShippedProductAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.rv_single_no_swipe_item, parent, false);
+                .inflate(R.layout.rv_single_item_buy, parent, false);
         return new ShippedProductAdapter.MyViewHolder(view);
     }
 

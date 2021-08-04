@@ -31,4 +31,5 @@
     <string name="the_list_is_empty">The list is empty!</string>
     <string name="shipped_product">Shipped product!</string>
     <string name="shipped_failed">Shipping failed!</string>
+    <string name="field">Failed to update shipment!</string>
 </resources>

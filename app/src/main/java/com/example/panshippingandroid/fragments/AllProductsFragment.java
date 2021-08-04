@@ -86,7 +86,7 @@ public class AllProductsFragment extends Fragment {
                 activity.dialog.dismiss();
         }, 5000);
         //lista proizvoda ostalih user-a
-        Call<List<ProductDto>> call = apiService.getAllProducts();
+        Call<List<ProductDto>> call = apiService.getAvailableToBuy(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override
             public void onResponse(@NonNull Call<List<ProductDto>> call, @NonNull Response<List<ProductDto>> response) {

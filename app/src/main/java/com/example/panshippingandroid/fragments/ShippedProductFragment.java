@@ -14,12 +14,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.panshippingandroid.R;
-import com.example.panshippingandroid.activities.MainActivity;
-import com.example.panshippingandroid.adapters.AllProductAdapter;
 import com.example.panshippingandroid.adapters.ShippedProductAdapter;
 import com.example.panshippingandroid.model.ProductDto;
+import com.example.panshippingandroid.model.ProductShipping;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -39,6 +39,7 @@ public class ShippedProductFragment extends Fragment {
     private ShippedProductAdapter buyProductAdapter;
     private RecyclerView recyclerView;
     private List<ProductDto> list = new ArrayList<>();
+    private List<ProductShipping> shippingList = new ArrayList<>();
     private TextView textView;
     private SharedPreferences sharedPreferences;
     private Long userId;
@@ -65,13 +66,16 @@ public class ShippedProductFragment extends Fragment {
         sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getLong(USER_ID, 0);
         initUI();
-        getShippedProdactsCall();
+        getShippedProductsCall();
+        //getShippingProductsCall();
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getShippedProdactsCall();
+        getShippedProductsCall();
+        //getShippingProductsCall();
     }
 
     private void initUI() {
@@ -79,7 +83,7 @@ public class ShippedProductFragment extends Fragment {
         textView = requireView().findViewById(R.id.tv_null_list);
     }
 
-    public void getShippedProdactsCall() {
+    public void getShippedProductsCall() {
         Call<List<ProductDto>> call = apiService.getBoughtProductsByUser(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override
@@ -97,11 +101,45 @@ public class ShippedProductFragment extends Fragment {
                         buyProductAdapter = new ShippedProductAdapter(getContext(), getParentFragmentManager(), list);
                         recyclerView.setAdapter(buyProductAdapter);
                     }
+
+                } else {
+                    Toast.makeText(getActivity(), R.string.field, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<ProductDto>> call, @NonNull Throwable t) {
+                call.cancel();
+            }
+        });
+    }
+
+
+    public void getShippingProductsCall() {
+        Call<List<ProductShipping>> call = apiService.getShippingProductsByUser(userId);
+        call.enqueue(new Callback<List<ProductShipping>>() {
+            @Override
+            public void onResponse(@NonNull Call<List<ProductShipping>> call, @NonNull Response<List<ProductShipping>> response) {
+                if (response.code() == HttpURLConnection.HTTP_OK) {
+                    shippingList.clear();
+
+                    shippingList = response.body();
+                    if (shippingList.size() == 0) {
+                        textView.setVisibility(View.VISIBLE);
+                    } else {
+                        textView.setVisibility(View.GONE);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+                        recyclerView.setLayoutManager(layoutManager);
+                        buyProductAdapter = new ShippedProductAdapter(getContext(), getParentFragmentManager(), list);
+                        recyclerView.setAdapter(buyProductAdapter);
+                    }
+                } else {
+                    Toast.makeText(getActivity(), R.string.field, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<List<ProductShipping>> call, @NonNull Throwable t) {
                 call.cancel();
             }
         });

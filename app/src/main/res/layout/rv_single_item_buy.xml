@@ -59,6 +59,21 @@
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Price" />
+
+        <TextView
+            android:id="@+id/byStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/byNameTv"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="17dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="240dp"
+            android:layout_toEndOf="@+id/ivImage"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            tools:text="Status" />
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
 

@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/iv_detail"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="200dp"
         android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
         android:src="@drawable/sale"

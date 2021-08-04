@@ -15,5 +15,4 @@ public class Shipping {
     private LocalDateTime start;
     private LocalDateTime end;
     //private User user;
-
 }

@@ -20,9 +20,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.panshippingandroid.R;
+import com.example.panshippingandroid.activities.MainActivity;
 import com.example.panshippingandroid.model.ProductDto;
 import com.example.panshippingandroid.model.ShippingModel;
+import com.example.panshippingandroid.utils.Const;
 import com.example.panshippingandroid.utils.ImageUtils;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.net.HttpURLConnection;
 
@@ -109,7 +112,7 @@ public class DetailsFragment extends Fragment {
                             shipping.setUserId(userID);
                             shipping.setProductId(product.getId());
 
-                            shippedCall(shipping);
+                            addShippingProduct(shipping);
                             Toast.makeText(getActivity(), R.string.shipped_product, Toast.LENGTH_SHORT).show();
                         });
                     }
@@ -126,7 +129,7 @@ public class DetailsFragment extends Fragment {
     }
 
 
-    public void shippedCall(ShippingModel shipping) {
+    public void addShippingProduct(ShippingModel shipping) {
         Call<Void> call = apiService.addShippingProducts(shipping);
         call.enqueue(new Callback<Void>() {
             @Override
