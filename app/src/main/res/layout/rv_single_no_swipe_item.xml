@@ -19,7 +19,8 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
             android:elevation="8dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/ivImage"

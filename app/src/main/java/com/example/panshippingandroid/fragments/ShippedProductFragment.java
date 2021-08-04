@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.panshippingandroid.R;
-import com.example.panshippingandroid.activities.MainActivity;
-import com.example.panshippingandroid.adapters.AllProductAdapter;
 import com.example.panshippingandroid.adapters.ShippedProductAdapter;
 import com.example.panshippingandroid.model.ProductDto;
 
@@ -65,13 +64,13 @@ public class ShippedProductFragment extends Fragment {
         sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getLong(USER_ID, 0);
         initUI();
-        getShippedProdactsCall();
+        getShippedProductsCall();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getShippedProdactsCall();
+        getShippedProductsCall();
     }
 
     private void initUI() {
@@ -79,11 +78,13 @@ public class ShippedProductFragment extends Fragment {
         textView = requireView().findViewById(R.id.tv_null_list);
     }
 
-    public void getShippedProdactsCall() {
+    public void getShippedProductsCall() {
         Call<List<ProductDto>> call = apiService.getShippedProducts(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override
-            public void onResponse(@NonNull Call<List<ProductDto>> call, @NonNull Response<List<ProductDto>> response) {
+            public void onResponse(@NonNull Call<List<ProductDto>> call, Response<List<ProductDto>> response) {
+                Log.i("RESPONSE INFO CODE",String.valueOf(response.code()));
+
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     list.clear();
 
@@ -102,6 +103,7 @@ public class ShippedProductFragment extends Fragment {
 
             @Override
             public void onFailure(@NonNull Call<List<ProductDto>> call, @NonNull Throwable t) {
+                Log.e("Error", t.getMessage());
                 call.cancel();
             }
         });
