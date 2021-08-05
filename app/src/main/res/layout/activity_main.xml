@@ -25,7 +25,5 @@
             android:layout_height="match_parent"
             android:textAlignment="center"
             android:textSize="40dp" />
-
-
     </FrameLayout>
 </RelativeLayout>

@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 public class Shipping {
 
     private Long id;
-
     private String start;
-
     private String end;
     private UserModel user;
     private ProductModel product;

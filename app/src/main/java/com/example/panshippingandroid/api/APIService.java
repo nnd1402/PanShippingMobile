@@ -50,7 +50,7 @@ public interface APIService {
 
     @GET("product/getProductsByUser/{id}")
     @Headers({"Content-Type:application/json"})
-    Call<List<ProductDto>> getMyProducts(@Path("id")Long id);
+    Call<List<ProductDto>> getMyProducts(@Path("id") Long id);
 
     @GET("product/{id}")
     @Headers({"Content-Type:application/json"})
@@ -72,8 +72,4 @@ public interface APIService {
     @Headers({"Content-Type:application/json"})
     Call<List<ProductDto>> getBoughtProductsByUser(@Path("userId") Long userId);
 
-    //za status
-    @GET("product/getBoughtProductsByUser/{userId}")
-    @Headers({"Content-Type:application/json", "Accept: application/json"})
-    Call<List<ProductShipping>> getShippingProductsByUser(@Path("userId") Long userId);
 }

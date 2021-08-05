@@ -79,10 +79,10 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/ic_cancel"
         android:text="Choose image"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/et_description"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="39dp"
-        android:visibility="gone"/>
+        tools:layout_editor_absoluteX="39dp" />
 
     <Button
         android:id="@+id/btn_addProduct"

@@ -2,10 +2,12 @@ package com.example.panshippingandroid.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -83,6 +85,7 @@ public class ShippedProductFragment extends Fragment {
     public void getShippedProductsCall() {
         Call<List<ProductDto>> call = apiService.getBoughtProductsByUser(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(@NonNull Call<List<ProductDto>> call, @NonNull Response<List<ProductDto>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {

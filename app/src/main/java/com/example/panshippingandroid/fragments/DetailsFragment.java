@@ -117,7 +117,7 @@ public class DetailsFragment extends Fragment {
                         });
                     }
                 } else {
-                    //Toast.makeText(getActivity(), R.string., Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.shipped_failed, Toast.LENGTH_SHORT).show();
                 }
             }
 
