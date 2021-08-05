@@ -31,4 +31,9 @@
     <string name="the_list_is_empty">The list is empty!</string>
     <string name="shipped_product">Shipped product!</string>
     <string name="shipped_failed">Shipping failed!</string>
+    <string name="field">Failed to update shipment!</string>
+    <string name="progress"><font fgcolor='#826daa'>In progress!</font></string>
+    <string name="transit"><font fgcolor='#fc8f00'>In transit!</font></string>
+    <string name="delivered"><font fgcolor='#35df13'>Delivered!</font></string>
+    <string name="error">An error has occurred!</string>
 </resources>

@@ -112,16 +112,13 @@ public class AddProductFragment extends Fragment {
                 addProductCall(setProduct(userID));
             });
         }
-        cancelIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Glide.with(requireContext())
-                        .load(AppCompatResources.getDrawable(requireContext(), R.drawable.sale))
-                        .override(400, 400)
-                        .into(addImageIv)
-                        .clearOnDetach();
-                cancelIv.setVisibility(View.GONE);
-            }
+        cancelIv.setOnClickListener(v -> {
+            Glide.with(requireContext())
+                    .load(AppCompatResources.getDrawable(requireContext(), R.drawable.sale))
+                    .override(400, 400)
+                    .into(addImageIv)
+                    .clearOnDetach();
+            cancelIv.setVisibility(View.GONE);
         });
     }
 

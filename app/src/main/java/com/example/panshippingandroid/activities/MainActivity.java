@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.products:
                     fragment = new ViewProductsFragment();
-                    replaceFragment(fragment,Const.TAG_VIEW);
+                    replaceFragment(fragment, Const.TAG_VIEW);
                     return true;
                 case R.id.buy_products:
                     fragment = new ShippedProductFragment();
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.add_products:
                     fragment = new AddProductFragment();
-                    replaceFragment(fragment,  Const.TAG_ADD);
+                    replaceFragment(fragment, Const.TAG_ADD);
                     return true;
             }
             return false;
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(dialog.getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawableResource(android.R.color.transparent);
     }
+
     private void replaceFragment(Fragment fragment, String TAG) {
         getSupportFragmentManager()
                 .beginTransaction()

@@ -2,10 +2,12 @@ package com.example.panshippingandroid.fragments;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,12 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.panshippingandroid.R;
-import com.example.panshippingandroid.activities.MainActivity;
-import com.example.panshippingandroid.adapters.AllProductAdapter;
 import com.example.panshippingandroid.adapters.ShippedProductAdapter;
 import com.example.panshippingandroid.model.ProductDto;
+import com.example.panshippingandroid.model.ProductShipping;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class ShippedProductFragment extends Fragment {
     private ShippedProductAdapter buyProductAdapter;
     private RecyclerView recyclerView;
     private List<ProductDto> list = new ArrayList<>();
+    private List<ProductShipping> shippingList = new ArrayList<>();
     private TextView textView;
     private SharedPreferences sharedPreferences;
     private Long userId;
@@ -65,23 +68,24 @@ public class ShippedProductFragment extends Fragment {
         sharedPreferences = requireContext().getSharedPreferences(AUTHENTICATION_FILE_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getLong(USER_ID, 0);
         initUI();
-        getShippedProdactsCall();
+        getShippedProductsCall();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        getShippedProdactsCall();
+        getShippedProductsCall();
     }
 
     private void initUI() {
-        recyclerView = requireView().findViewById(R.id.recycleView);
+        recyclerView = requireView().findViewById(R.id.buy_recycleView);
         textView = requireView().findViewById(R.id.tv_null_list);
     }
 
-    public void getShippedProdactsCall() {
-        Call<List<ProductDto>> call = apiService.getShippedProducts(userId);
+    public void getShippedProductsCall() {
+        Call<List<ProductDto>> call = apiService.getBoughtProductsByUser(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onResponse(@NonNull Call<List<ProductDto>> call, @NonNull Response<List<ProductDto>> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
@@ -97,12 +101,16 @@ public class ShippedProductFragment extends Fragment {
                         buyProductAdapter = new ShippedProductAdapter(getContext(), getParentFragmentManager(), list);
                         recyclerView.setAdapter(buyProductAdapter);
                     }
+
+                } else {
+                    Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<ProductDto>> call, @NonNull Throwable t) {
                 call.cancel();
+                t.printStackTrace();
             }
         });
     }

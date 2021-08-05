@@ -119,10 +119,8 @@ public class MyProductAdapter extends RecyclerView.Adapter<MyProductAdapter.MyVi
             @Override
             public void onResponse(@NotNull Call<Void> call, @NotNull Response<Void> response) {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
-
                     Toast.makeText(context.getApplicationContext(), "Product deleted!", Toast.LENGTH_SHORT).show();
                     getProductCall();
-
                 } else {
                     if (response.errorBody() != null) {
                         Toast.makeText(context.getApplicationContext(), response.body().toString(), Toast.LENGTH_LONG).show();

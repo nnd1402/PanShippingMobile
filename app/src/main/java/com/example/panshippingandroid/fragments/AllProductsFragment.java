@@ -75,7 +75,7 @@ public class AllProductsFragment extends Fragment {
     }
 
     private void initUI() {
-        recyclerView = requireView().findViewById(R.id.recycleView);
+        recyclerView = requireView().findViewById(R.id.all_recycleView);
         textView = requireView().findViewById(R.id.tv_null_list);
     }
 
@@ -85,6 +85,7 @@ public class AllProductsFragment extends Fragment {
             if (activity.dialog.isShowing())
                 activity.dialog.dismiss();
         }, 5000);
+        //lista proizvoda ostalih user-a
         Call<List<ProductDto>> call = apiService.getAvailableToBuy(userId);
         call.enqueue(new Callback<List<ProductDto>>() {
             @Override

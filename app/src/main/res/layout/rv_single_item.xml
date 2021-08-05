@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.chauthai.swipereveallayout.SwipeRevealLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="8dp"
+    android:layout_marginBottom="10dp"
     app:dragEdge="right"
-    app:mode="same_level"
-    android:layout_marginBottom="10dp">
+    app:mode="same_level">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -18,18 +19,16 @@
             android:id="@+id/btn_edit"
             android:layout_width="46dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_edit"
-            android:background="@color/teal_700"/>
+            android:src="@drawable/ic_edit" />
 
         <ImageView
             android:id="@+id/btn_delete"
             android:layout_width="46dp"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_delete"
-            android:background="@color/teal_200"/>
+            android:src="@drawable/ic_delete" />
     </LinearLayout>
 
-    <androidx.cardview.widget.CardView xmlns:tools="http://schemas.android.com/tools"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="3dp"
@@ -77,8 +76,10 @@
                 android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="97dp"
+                android:layout_below="@+id/rv_name"
+                android:layout_marginStart="12dp"
                 android:layout_marginBottom="5dp"
+                android:layout_toEndOf="@+id/ivImage"
                 android:layout_toRightOf="@+id/rv_name"
                 android:textColor="@color/teal_200"
                 android:textSize="18sp"
