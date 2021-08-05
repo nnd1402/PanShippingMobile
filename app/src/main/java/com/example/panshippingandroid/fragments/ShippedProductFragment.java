@@ -103,7 +103,7 @@ public class ShippedProductFragment extends Fragment {
                     }
 
                 } else {
-                    Toast.makeText(getActivity(), R.string.field, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), R.string.error, Toast.LENGTH_SHORT).show();
                 }
             }
 

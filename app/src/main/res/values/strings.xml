@@ -35,4 +35,5 @@
     <string name="progress"><font fgcolor='#826daa'>In progress!</font></string>
     <string name="transit"><font fgcolor='#fc8f00'>In transit!</font></string>
     <string name="delivered"><font fgcolor='#35df13'>Delivered!</font></string>
+    <string name="error">An error has occurred!</string>
 </resources>
