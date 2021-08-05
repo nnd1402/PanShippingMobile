@@ -32,4 +32,7 @@
     <string name="shipped_product">Shipped product!</string>
     <string name="shipped_failed">Shipping failed!</string>
     <string name="field">Failed to update shipment!</string>
+    <string name="progress">In progress!</string>
+    <string name="transit">In transit!</string>
+    <string name="delivered">Delivered!</string>
 </resources>

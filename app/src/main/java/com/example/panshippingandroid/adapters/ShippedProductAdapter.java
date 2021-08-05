@@ -2,6 +2,7 @@ package com.example.panshippingandroid.adapters;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
@@ -27,16 +29,21 @@ import com.example.panshippingandroid.utils.ImageUtils;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class ShippedProductAdapter extends RecyclerView.Adapter<ShippedProductAdapter.MyViewHolder> {
 
     private final Context context;
     private List<ProductDto> productModels;
     private FragmentManager fragmentManager;
     public Long userId;
+    private LocalDateTime nowDate = LocalDateTime.now();
+    private String startTime;
+    private String endTime;
 
     public ShippedProductAdapter(Context context, FragmentManager fragmentManager, List<ProductDto> productDtoList) {
         this.context = context;
@@ -52,14 +59,27 @@ public class ShippedProductAdapter extends RecyclerView.Adapter<ShippedProductAd
         return new ShippedProductAdapter.MyViewHolder(view);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ShippedProductAdapter.MyViewHolder holder, int position) {
 
-
         holder.byNameTv.setText(productModels.get(position).getName());
         holder.byPriceTv.setText((productModels.get(position).getPrice()) + " €");
-        holder.byStatus.setText(String.valueOf(productModels.get(position).getShipping().get(position).getStart()));
+
+        startTime = String.valueOf(productModels.get(position).getShipping().get(position).getStart());
+        endTime = String.valueOf(productModels.get(position).getShipping().get(position).getEnd());
+
+        LocalDateTime startDate = LocalDateTime.parse(startTime);
+        LocalDateTime endDate = LocalDateTime.parse(endTime);
+
+        if (startDate.isAfter(nowDate)) {
+            holder.byStatus.setText(R.string.progress);
+        } else if (endDate.isAfter(nowDate)) {
+            holder.byStatus.setText(R.string.transit);
+        } else {
+            holder.byStatus.setText(R.string.delivered);
+        }
 
         if (productModels.get(position).getImage() != null) {
             Glide.with(context)
