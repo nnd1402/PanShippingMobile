@@ -74,6 +74,6 @@ public interface APIService {
 
     //za status
     @GET("product/getBoughtProductsByUser/{userId}")
-    @Headers({"Content-Type:application/json"})
+    @Headers({"Content-Type:application/json", "Accept: application/json"})
     Call<List<ProductShipping>> getShippingProductsByUser(@Path("userId") Long userId);
 }

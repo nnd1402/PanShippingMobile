@@ -1,7 +1,5 @@
 package com.example.panshippingandroid.model;
 
-import java.time.LocalDateTime;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,7 +10,10 @@ import lombok.NoArgsConstructor;
 public class Shipping {
 
     private Long id;
-    private LocalDateTime start;
-    private LocalDateTime end;
-    //private User user;
+
+    private String start;
+
+    private String end;
+    private UserModel user;
+    private ProductModel product;
 }

@@ -1,6 +1,7 @@
 package com.example.panshippingandroid.model;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -19,7 +20,7 @@ public class ProductDto {
     private String description;
     private String image;
     private UserModel user;
-    //private List<Shipping> shipping;
+    private ArrayList<Shipping> shipping;
 }
 
 

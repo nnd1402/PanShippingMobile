@@ -67,15 +67,12 @@ public class ShippedProductFragment extends Fragment {
         userId = sharedPreferences.getLong(USER_ID, 0);
         initUI();
         getShippedProductsCall();
-        //getShippingProductsCall();
-
     }
 
     @Override
     public void onResume() {
         super.onResume();
         getShippedProductsCall();
-        //getShippingProductsCall();
     }
 
     private void initUI() {
@@ -110,37 +107,7 @@ public class ShippedProductFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Call<List<ProductDto>> call, @NonNull Throwable t) {
                 call.cancel();
-            }
-        });
-    }
-
-
-    public void getShippingProductsCall() {
-        Call<List<ProductShipping>> call = apiService.getShippingProductsByUser(userId);
-        call.enqueue(new Callback<List<ProductShipping>>() {
-            @Override
-            public void onResponse(@NonNull Call<List<ProductShipping>> call, @NonNull Response<List<ProductShipping>> response) {
-                if (response.code() == HttpURLConnection.HTTP_OK) {
-                    shippingList.clear();
-
-                    shippingList = response.body();
-                    if (shippingList.size() == 0) {
-                        textView.setVisibility(View.VISIBLE);
-                    } else {
-                        textView.setVisibility(View.GONE);
-                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-                        recyclerView.setLayoutManager(layoutManager);
-                        buyProductAdapter = new ShippedProductAdapter(getContext(), getParentFragmentManager(), list);
-                        recyclerView.setAdapter(buyProductAdapter);
-                    }
-                } else {
-                    Toast.makeText(getActivity(), R.string.field, Toast.LENGTH_SHORT).show();
-                }
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<List<ProductShipping>> call, @NonNull Throwable t) {
-                call.cancel();
+                t.printStackTrace();
             }
         });
     }

@@ -1,5 +1,6 @@
 package com.example.panshippingandroid.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -22,6 +24,10 @@ import com.example.panshippingandroid.fragments.DetailsFragment;
 import com.example.panshippingandroid.model.ProductDto;
 import com.example.panshippingandroid.utils.ImageUtils;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 
@@ -46,11 +52,14 @@ public class ShippedProductAdapter extends RecyclerView.Adapter<ShippedProductAd
         return new ShippedProductAdapter.MyViewHolder(view);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull ShippedProductAdapter.MyViewHolder holder, int position) {
 
+
         holder.byNameTv.setText(productModels.get(position).getName());
-        holder.byPriceTv.setText(String.valueOf(productModels.get(position).getPrice()));
+        holder.byPriceTv.setText((productModels.get(position).getPrice()) + " €");
+        holder.byStatus.setText(String.valueOf(productModels.get(position).getShipping().get(position).getStart()));
 
         if (productModels.get(position).getImage() != null) {
             Glide.with(context)
@@ -90,6 +99,7 @@ public class ShippedProductAdapter extends RecyclerView.Adapter<ShippedProductAd
         private final TextView byPriceTv;
         private final ImageView byImageIv;
         private final CardView parentCard;
+        private final TextView byStatus;
 
         MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -97,6 +107,8 @@ public class ShippedProductAdapter extends RecyclerView.Adapter<ShippedProductAd
             byPriceTv = itemView.findViewById(R.id.byPriceTv);
             byImageIv = itemView.findViewById(R.id.byImageIv);
             parentCard = itemView.findViewById(R.id.parent_card);
+            byStatus = itemView.findViewById(R.id.byStatus);
+
         }
     }
 }
